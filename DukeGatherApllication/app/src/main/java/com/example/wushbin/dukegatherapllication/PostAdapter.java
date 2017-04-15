@@ -46,6 +46,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         TextView postFrom = (TextView) listItemView.findViewById(R.id.post_item_from);
         TextView postTo = (TextView) listItemView.findViewById(R.id.post_item_to);
         TextView postTime = (TextView) listItemView.findViewById(R.id.post_item_time);
+        TextView postDate = (TextView) listItemView.findViewById(R.id.post_item_date);
         TextView postOwner = (TextView) listItemView.findViewById(R.id.post_item_owner);
         TextView postNum = (TextView) listItemView.findViewById(R.id.post_item_num2);
         TextView currentNum = (TextView) listItemView.findViewById(R.id.post_item_num1);
@@ -57,6 +58,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         postFrom.setText(currentPost.getFromPlace());
         postTo.setText(currentPost.getToPlace());
         postTime.setText(currentPost.getLeaveTime());
+        postDate.setText(currentPost.getLeaveDate());
         postOwner.setText(currentPost.getUserName());
         postNum.setText(String.valueOf(currentPost.getNumOfPeople()));
         currentNum.setText(String.valueOf(currentPost.getCurrentNumofMembers()));
