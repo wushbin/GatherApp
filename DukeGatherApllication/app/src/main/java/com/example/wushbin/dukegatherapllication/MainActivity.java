@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String from1;
     private String to1;
+    private String time1;
+    private String date1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = getIntent();
             from1 =  intent.getStringExtra("from") ;
             to1 = intent.getStringExtra("to");
+            date1 = intent.getStringExtra("date");
+            time1 = intent.getStringExtra("time");
             //Toast.makeText(MainActivity.this, num, Toast.LENGTH_SHORT).show();
         }
 
@@ -218,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         mPostAdapter.add(mPost);
                     }
                     else {
-                        if ( (from1.equals(mPost.getFromPlace() ) || from1.equals("")) && (to1.equals(mPost.getToPlace()) || to1.equals(("")) ) ) {
+                        if ( (from1.equals(mPost.getFromPlace() ) || from1.equals("")) && (to1.equals(mPost.getToPlace()) || to1.equals(("")) )&&(date1.equals(mPost.getLeaveDate())||date1.equals(""))&&(time1.equals(mPost.getLeaveTime())||time1.equals("")) ) {
                             mPostAdapter.add(mPost);
                         }
                     }

@@ -76,12 +76,23 @@ public class CreatePostActivity extends AppCompatActivity {
                                               }
                                           }
         );
-        EditText editDate = (EditText)findViewById(R.id.edit_date);
+        final EditText editDate = (EditText)findViewById(R.id.edit_date);
         editDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             public void onFocusChange(View view, boolean hasfocus){
                 if(hasfocus){
                     DialogFragment newFragment = new DatePickerFragment(view);
                     newFragment.show(getSupportFragmentManager(), "datePicker");
+
+                }
+            }
+
+        });
+        final EditText editTime = (EditText)findViewById(R.id.edit_time);
+        editTime.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            public void onFocusChange(View view, boolean hasfocus){
+                if(hasfocus){
+                    DialogFragment newFragment = new TimePickerFragment(view);
+                    newFragment.show(getSupportFragmentManager(), "timePicker");
 
                 }
             }
@@ -97,13 +108,10 @@ public class CreatePostActivity extends AppCompatActivity {
         mToEditText = (EditText) findViewById(R.id.post_to);
         //mTimeText = (EditText) findViewById(R.id.post_time);
         mCreateButton = (Button) findViewById(R.id.button_create_post);
-      mTimePicker = (TimePicker) findViewById(R.id.time_picker);
-      mTimePicker.setIs24HourView(true);
 
 
-       hour = calendar.get(Calendar.HOUR_OF_DAY);
-        min = calendar.get(Calendar.MINUTE);
-       final String leaveDate = editDate.getText().toString();
+
+
         //TODO:should set the Time Picker to show the current time
         //TODO:should change the time picker as dialogue
         mCreateButton.setOnClickListener(new View.OnClickListener() {
@@ -111,19 +119,10 @@ public class CreatePostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String from = mFromEditText.getText().toString();
                 String to = mToEditText.getText().toString();
-             if (Build.VERSION.SDK_INT >= 23 ) {
-                  hour = mTimePicker.getHour();
-                    min = mTimePicker.getMinute();
-
-
-               }
-              else {
-                   hour = mTimePicker.getCurrentHour();
-                   min = mTimePicker.getCurrentMinute();
-                }
-                String leaveTime = hour + ":" + min;
-
-                Log.v(TAG, leaveTime);
+                String leaveTime = editTime.getText().toString();
+                String leaveDate = editDate.getText().toString();
+                Log.v("leavet",leaveTime);
+                Log.v("leaveD",leaveDate);
                 Post newPost = new Post(from, to,leaveTime,leaveDate,quantityOfPeoplePost,mUsername);
                 mPostDatabaseReference.push().setValue(newPost);
                 Toast.makeText(CreatePostActivity.this,"Posted", Toast.LENGTH_SHORT).show();
