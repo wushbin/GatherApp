@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <EditText
+        android:id="@+id/postfrom"
+        style="@style/EditorFieldStyle"
+        android:hint="From"/>
+    <EditText
+        android:id="@+id/postto"
+        style="@style/EditorFieldStyle"
+        android:hint="To"/>
+    <EditText
+        android:id="@+id/posttime"
+        android:inputType="datetime"
+        android:hint="Time"
+        style="@style/EditorFieldStyle" />
+
+    <EditText
+        android:id="@+id/people_num"
+        android:inputType="datetime"
+        android:hint="Number of Members"
+        style="@style/EditorFieldStyle" />
+
+</LinearLayout>

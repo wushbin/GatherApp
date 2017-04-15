@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@color/tan_background">
+
+
+    <LinearLayout
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="From:"
+            style="@style/PostStyle" />
+        <TextView
+            android:id="@+id/post_item_from"
+            android:text="Some location"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="To:"
+            style="@style/PostStyle" />
+        <TextView
+            android:id="@+id/post_item_to"
+            android:text="Some location"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="Time:"
+            style="@style/PostStyle" />
+        <TextView
+            android:id="@+id/post_item_time"
+            android:text="Some time"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="Owner:"
+            style="@style/PostStyle" />
+        <TextView
+            android:id="@+id/post_item_owner"
+            android:text="Some body"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <!--
+    <LinearLayout
+        android:paddingLeft="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Members:"
+            style="@style/PostStyle" />
+        <TextView
+
+            android:text="N/A"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"/>
+        <TextView
+            android:text="N/A"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+    </LinearLayout>
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp">
+
+        <!-- Label -->
+        <TextView
+            android:text="Members"
+            style="@style/PostStyle"/>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="number----------"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    />
+                <TextView
+                    android:id="@+id/post_item_num1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="N/A" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="upper limit------"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    />
+                <TextView
+                    android:id="@+id/post_item_num2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="N/A" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
+        <TextView
+            android:text="Description:"
+            style="@style/PostStyle" />
+        <TextView
+            android:id="@+id/post_item_description"
+            android:text="N/A"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
+
+        <FrameLayout
+            android:layout_marginRight="16dp"
+            android:layout_gravity="right"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:background="@color/page_information">
+            <TextView
+                android:id="@+id/post_enter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="Enter"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:gravity="center"
+                android:textColor="@color/tw__solid_white"/>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_marginRight="16dp"
+            android:layout_gravity="right"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:background="@color/page_information">
+            <TextView
+                android:id="@+id/post_join"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="Join"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:gravity="center"
+                android:textColor="@color/tw__solid_white"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

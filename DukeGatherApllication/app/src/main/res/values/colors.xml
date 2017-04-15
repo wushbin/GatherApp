@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary color of the app (shown in the app bar) -->
+    <color name="colorPrimary">#009688</color>
+    <!-- Primary dark color of the app (shown in the status bar) -->
+    <color name="colorPrimaryDark">#00796B</color>
+    <!-- Primary dark color of accent-->
+    <color name="colorAccent">#9E9E9E</color>
+
+    <color name="tan_background">#FFF7DA</color>
+
+    <color name="page_post">#FD8E09</color>
+
+    <color name="page_button">#4DB6AC</color>
+
+    <color name="page_ingroup">#8800A0</color>
+
+    <color name="page_information">#80CBC4</color>
+</resources>

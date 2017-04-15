@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "268033519946",
+    "firebase_url": "https://dukegather-f1978.firebaseio.com",
+    "project_id": "dukegather-f1978",
+    "storage_bucket": "dukegather-f1978.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268033519946:android:789409b8e80531ce",
+        "android_client_info": {
+          "package_name": "com.example.wushbin.dukegatherapllication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268033519946-6jeu7kfr90kee6s7hk2cagac7vg1a97t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARzCAdfa9bjy19eTr2U_bjHtJjuHY00hc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

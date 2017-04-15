@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <EditText
+        style="@style/EditorFieldStyle"
+        android:id="@+id/postfrom"
+        android:hint="From"/>
+    <EditText
+        style="@style/EditorFieldStyle"
+        android:id="@+id/postto"
+        android:hint="To"/>
+
+    <EditText
+        style="@style/EditorFieldStyle"
+        android:id="@+id/posttime"
+        android:inputType="datetime"
+        android:hint="Time"/>
+
+    <TextView
+        android:padding="6dp"
+        android:fontFamily = "sans-serif-light"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of People" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:background="@color/page_button"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonmin"
+            android:text="-"/>
+
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/numberofpeople"
+            android:text="1"/>
+        <Button
+            android:background="@color/page_button"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonplus"
+            android:text="+"/>
+    </LinearLayout>
+
+    <Button
+        android:background="@color/page_button"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="post"/>
+
+</LinearLayout>
