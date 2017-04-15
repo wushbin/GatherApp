@@ -136,7 +136,7 @@ public class InGroupActivity extends AppCompatActivity{
             public void onClick(View view) {
                 // Clear input box
                 Message chatMessage = new Message(mUsername,mMessageEditText.getText().toString(), null);
-                mMessagesDatabaseReference.child("post").child(postKey).child("message").push().setValue(chatMessage);
+                mMessagesDatabaseReference.child("message").push().setValue(chatMessage);
                 mMessageEditText.setText("");
             }
         });
@@ -176,7 +176,7 @@ public class InGroupActivity extends AppCompatActivity{
                             Toast.makeText(InGroupActivity.this,"photo uploaded", Toast.LENGTH_SHORT).show();
                             Log.v("photo message","photo uploading");
                             Message chatMessage = new Message(mUsername, null, downloadUrl.toString());
-                            mMessagesDatabaseReference.push().setValue(chatMessage);
+                            mMessagesDatabaseReference.child("message").push().setValue(chatMessage);
                         }
                     });
         }
