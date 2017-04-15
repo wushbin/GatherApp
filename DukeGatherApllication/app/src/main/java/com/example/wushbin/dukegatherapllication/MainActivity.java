@@ -4,6 +4,7 @@ package com.example.wushbin.dukegatherapllication;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "**/MainActivity/**";
 
     private String mUsername;
+    private String mUserEmail;
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
     private DatabaseReference mPostDatabaseReference; // a database reference
     private ChildEventListener mChildEventListener;
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 if(user != null){
                     // user signed in
                     //mUsername = user.getDisplayName();
-                    onSignedInInitialize(user.getDisplayName());
+                    onSignedInInitialize(user.getDisplayName(),user.getEmail());
                     //Toast.makeText(MainActivity.this, "You're now signed in. Welcome to DukeGather.", Toast.LENGTH_SHORT).show();
                 }else{
                     onSignedOutCleanUp();
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
                 //TODO: pass data the a new intent
                 intent.putExtra("userName",mUsername);
+                intent.putExtra("userEmail",mUserEmail);
                 Log.v(TAG,mUsername);
                 startActivityForResult(intent, Intent_Constants.Intent_Post_Code);
             }
@@ -167,8 +170,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void onSignedInInitialize(String userName){
+    private void onSignedInInitialize(String userName, String userEmail){
         mUsername = userName;
+        mUserEmail = userEmail;
         attachDatabaseReadListener();
     }
 
@@ -287,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(MainActivity.this,"welcome to join", Toast.LENGTH_SHORT).show();
         Intent groupIntent = new Intent(MainActivity.this,InGroupActivity.class);
         groupIntent.putExtra("memberName",mUsername);
+        groupIntent.putExtra("memberEmail",mUserEmail);
         groupIntent.putExtra("postKey",currentPost.getKey());
         groupIntent.putExtra("existStatus", existStatus);
         Log.v(TAG+"toGro",String.valueOf(existStatus));
