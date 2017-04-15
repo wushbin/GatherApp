@@ -53,6 +53,7 @@ public class InGroupActivity extends AppCompatActivity{
     private boolean exitStatus;
     private String postKey;
     private String mUsername;
+    private String mUserEmail;
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
     private DatabaseReference mMessagesDatabaseReference; // a database reference
     private ChildEventListener mChildEventListener;
@@ -67,9 +68,8 @@ public class InGroupActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_list);
         mUsername = ANONYMOUS;
-
-
         mUsername = getIntent().getStringExtra("memberName");
+        mUserEmail = getIntent().getStringExtra("memberEmail");
         postKey = getIntent().getStringExtra("postKey");
         exitStatus = getIntent().getExtras().getBoolean("existStatus");
         Log.v(TAG+"toGro",String.valueOf(exitStatus));
@@ -78,10 +78,11 @@ public class InGroupActivity extends AppCompatActivity{
         //mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("post").child(postKey).child("message");
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("post").child(postKey);
 
+
         if(exitStatus == false){
             Log.v(TAG+"toGro",String.valueOf(exitStatus));
             Log.v(TAG+"toGro",String.valueOf(postKey));
-            User currentUser = new User(mUsername);
+            User currentUser = new User(mUsername,mUserEmail);
             Log.v(TAG+"toGro",currentUser.getUserName());
             String currentUserKey = mMessagesDatabaseReference.child("User").push().getKey();
             Log.v(TAG+"toGro",currentUserKey);
@@ -135,7 +136,7 @@ public class InGroupActivity extends AppCompatActivity{
             public void onClick(View view) {
                 // Clear input box
                 Message chatMessage = new Message(mUsername,mMessageEditText.getText().toString(), null);
-                mMessagesDatabaseReference.child("message").push().setValue(chatMessage);
+                mMessagesDatabaseReference.child("post").child(postKey).child("message").push().setValue(chatMessage);
                 mMessageEditText.setText("");
             }
         });
