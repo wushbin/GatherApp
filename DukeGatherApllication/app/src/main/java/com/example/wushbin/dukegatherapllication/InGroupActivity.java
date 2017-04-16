@@ -20,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,6 +61,9 @@ public class InGroupActivity extends AppCompatActivity{
     private String postKey;
     private String mUsername;
     private String mUserEmail;
+    private Uri mUserPhotoUri;
+
+    private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
     private DatabaseReference mMessagesDatabaseReference; // a database reference
     private ChildEventListener mChildEventListener;
@@ -73,27 +78,25 @@ public class InGroupActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_list);
-        mUsername = ANONYMOUS;
-        mUsername = getIntent().getStringExtra("memberName");
-        mUserEmail = getIntent().getStringExtra("memberEmail");
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        mUsername = user.getDisplayName();
+        mUserEmail = user.getEmail();
+        mUserPhotoUri = user.getPhotoUrl();
+
         postKey = getIntent().getStringExtra("postKey");
         exitStatus = getIntent().getExtras().getBoolean("existStatus");
-        Log.v(TAG+"toGro",String.valueOf(exitStatus));
-        //Toast.makeText(InGroupActivity.this,mUsername+"Signed in", Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(InGroupActivity.this,String.valueOf(postKey), Toast.LENGTH_SHORT).show();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        //mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("post").child(postKey).child("message");
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("post").child(postKey);
 
-
         if(exitStatus == false){
-            Log.v(TAG+"toGro",String.valueOf(exitStatus));
-            Log.v(TAG+"toGro",String.valueOf(postKey));
-            User currentUser = new User(mUsername,mUserEmail);
-            Log.v(TAG+"toGro",currentUser.getUserName());
+            User currentUser = new User(mUsername,mUserEmail,mUserPhotoUri.toString());
             String currentUserKey = mMessagesDatabaseReference.child("User").push().getKey();
-            Log.v(TAG+"toGro",currentUserKey);
             mMessagesDatabaseReference.child("User").child(currentUserKey).setValue(currentUser);
         }
+
         mFirebaseStorage = FirebaseStorage.getInstance();
         mChatPhotosStorageReference = mFirebaseStorage.getReference().child("chat_photos");
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
@@ -296,8 +299,6 @@ public class InGroupActivity extends AppCompatActivity{
     public void showMemberInformation(){
         Intent groupInfoIntent = new Intent(InGroupActivity.this, GroupInfoActivity.class);
         groupInfoIntent.putExtra("postKey",postKey);
-        groupInfoIntent.putExtra("memberName",mUsername);
-        groupInfoIntent.putExtra("existStatus",exitStatus);
         startActivity(groupInfoIntent);
     }
 

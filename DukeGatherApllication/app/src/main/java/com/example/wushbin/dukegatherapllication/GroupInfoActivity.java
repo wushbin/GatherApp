@@ -31,9 +31,7 @@ public class GroupInfoActivity extends AppCompatActivity {
     private UserAdapter mUserAdapter;
     private ListView mUserListView;
 
-    private boolean exitStatus;
     private String postKey;
-    private String mUsername;
     private String TAG = "** GroupInfo **";
     private ChildEventListener mChildEventListener;
     private TextView OwnerNameView;
@@ -45,8 +43,6 @@ public class GroupInfoActivity extends AppCompatActivity {
         OwnerNameView = (TextView) findViewById(R.id.group_owner);
 
         postKey = getIntent().getStringExtra("postKey");
-        mUsername = getIntent().getStringExtra("memberName");
-        exitStatus = getIntent().getExtras().getBoolean("existStatus");
 
         Log.v(TAG,postKey);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
