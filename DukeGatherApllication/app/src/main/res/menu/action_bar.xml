@@ -4,19 +4,25 @@
 
     <item
         android:id="@+id/action_settings"
-        android:title="setting"
+        android:title="Setting"
         app:showAsAction="never">
     </item>
 
     <item
         android:id="@+id/action_members"
-        android:title="members"
+        android:title="Members"
         app:showAsAction="never">
     </item>
 
     <item
         android:id="@+id/action_quit"
-        android:title="quit"
+        android:title="Quit"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/action_delete"
+        android:title="Delete"
         app:showAsAction="never">
     </item>
 

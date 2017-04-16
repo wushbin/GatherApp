@@ -1,6 +1,8 @@
 package com.example.wushbin.dukegatherapllication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,12 +26,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.data;
 
 /**
  * Created by wushbin on 3/2/17.
@@ -60,6 +65,7 @@ public class InGroupActivity extends AppCompatActivity{
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mChatPhotosStorageReference;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private String Owner;
 
 
     // the onCreate to initialize this interface
@@ -158,6 +164,19 @@ public class InGroupActivity extends AppCompatActivity{
         };
 
         mMessagesDatabaseReference.child("message").addChildEventListener(mChildEventListener);
+
+        ValueEventListener OwnerListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Owner = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        mMessagesDatabaseReference.child("userName").addValueEventListener(OwnerListener);
     }
     
     @Override
@@ -204,16 +223,50 @@ public class InGroupActivity extends AppCompatActivity{
                 groupInfoIntent.putExtra("existStatus",exitStatus);
                 startActivity(groupInfoIntent);
                 return true;
-
             case R.id.action_quit:
-                quitFromGroup();
+                showQuitConfirmationDialog();
+                return true;
+            case R.id.action_delete:
+                deleteGroup();
                 //finish();
                 return true;
+            
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void quitFromGroup(){
+    /**
+     * quite from group
+     */
+
+    //show quit group dialogue
+    public void showQuitConfirmationDialog( ) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.quit_the_group);
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                quitFromGroup();
+                finish();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //deleteThisGroup();
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
+
+    private void quitFromGroup(){
         Query userRef = mMessagesDatabaseReference.child("User").orderByChild("userName").equalTo(mUsername);
         userRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -241,8 +294,51 @@ public class InGroupActivity extends AppCompatActivity{
 
     }
 
+
+    /**
+     * Update Post
+     */
     public void updatePostInfo(){
 
     }
 
+
+    /**
+     * delete group
+     */
+    public void deleteGroup(){
+        Log.v(TAG, Owner);
+        if(! Owner.equals(mUsername)){
+            Toast.makeText(InGroupActivity.this, "You're not the Owner of this group.", Toast.LENGTH_LONG).show();
+        }else{
+            showDeleteConfirmationDialog();
+        }
+    }
+    //show delete group dialogue
+    public void showDeleteConfirmationDialog( ) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_the_group);
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                    deleteThisGroup();
+                    finish();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //deleteThisGroup();
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void deleteThisGroup(){
+        mMessagesDatabaseReference.removeValue();
+    }
 }
