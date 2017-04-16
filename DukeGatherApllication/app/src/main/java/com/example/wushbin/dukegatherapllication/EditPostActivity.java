@@ -1,7 +1,11 @@
 package com.example.wushbin.dukegatherapllication;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -104,11 +108,25 @@ public class EditPostActivity extends AppCompatActivity {
             case R.id.action_edit_save:
                 savePost();
                 return true;
+            case android.R.id.home:
+                Log.v(TAG,String.valueOf(mPostHasChanged));
+                if (!mPostHasChanged) {
+                    NavUtils.navigateUpFromSameTask(EditPostActivity.this);
+                    return true;
+                }
+                DialogInterface.OnClickListener discardButtonClickListener =
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                NavUtils.navigateUpFromSameTask(EditPostActivity.this);
+                            }
+                        };
+                showUnsavedChangesDialog(discardButtonClickListener);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
     private void savePost(){
         String fromString = mFromEditText.getText().toString().trim();
         String toString = mToEditText.getText().toString().trim();
@@ -122,6 +140,42 @@ public class EditPostActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if (!mPostHasChanged) {
+            super.onBackPressed();
+            return;
+        }
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked "Discard" button, close the current activity.
+                        finish();
+                    }
+                };
+
+        // Show dialog that there are unsaved changes
+        showUnsavedChangesDialog(discardButtonClickListener);
+    }
+
+    private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
 
 
