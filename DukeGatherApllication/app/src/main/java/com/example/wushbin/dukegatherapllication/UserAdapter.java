@@ -9,7 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
+
+import static com.example.wushbin.dukegatherapllication.R.id.photoImageView;
 
 /**
  * Created by wushbin on 4/14/17.
@@ -34,11 +38,11 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         TextView nameText = (TextView) listItemView.findViewById(R.id.name_text_view);
         TextView contactText = (TextView) listItemView.findViewById(R.id.email_text_view);
-        ImageView iconView = (ImageView) listItemView.findViewById(R.id.image_user_view);
+        ImageView photoImageView = (ImageView) listItemView.findViewById(R.id.image_user_view);
 
         nameText.setText(currentUser.getUserName());
         contactText.setText(currentUser.getEmail());
-
+        Glide.with(photoImageView.getContext()).load(currentUser.getPhotoUrl()).into(photoImageView);
         return listItemView;
     }
 }

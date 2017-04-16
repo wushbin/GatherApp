@@ -4,6 +4,7 @@ package com.example.wushbin.dukegatherapllication;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String mUsername;
     private String mUserEmail;
+    private Uri mUserPhotoUri;
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
     private DatabaseReference mPostDatabaseReference; // a database reference
     private ChildEventListener mChildEventListener;
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 if(user != null){
                     // user signed in
                     //mUsername = user.getDisplayName();
-                    onSignedInInitialize(user.getDisplayName(),user.getEmail());
+                    onSignedInInitialize(user.getDisplayName(),user.getEmail(),user.getPhotoUrl());
                     //Toast.makeText(MainActivity.this, "You're now signed in. Welcome to DukeGather.", Toast.LENGTH_SHORT).show();
                 }else{
                     onSignedOutCleanUp();
@@ -174,9 +176,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void onSignedInInitialize(String userName, String userEmail){
+    private void onSignedInInitialize(String userName, String userEmail, Uri userPhotoUri){
         mUsername = userName;
         mUserEmail = userEmail;
+        mUserPhotoUri = userPhotoUri;
         attachDatabaseReadListener();
     }
 
@@ -294,8 +297,8 @@ public class MainActivity extends AppCompatActivity {
     public void getIntoInGroupActivity(final Post currentPost,boolean existStatus){
         //Toast.makeText(MainActivity.this,"welcome to join", Toast.LENGTH_SHORT).show();
         Intent groupIntent = new Intent(MainActivity.this,InGroupActivity.class);
-        groupIntent.putExtra("memberName",mUsername);
-        groupIntent.putExtra("memberEmail",mUserEmail);
+        //groupIntent.putExtra("memberName",mUsername);
+        //groupIntent.putExtra("memberEmail",mUserEmail);
         groupIntent.putExtra("postKey",currentPost.getKey());
         groupIntent.putExtra("existStatus", existStatus);
         //Log.v(TAG+"toGro",String.valueOf(existStatus));
