@@ -13,4 +13,5 @@
     <string name="cancel">Nope!</string>
     <string name="delete_the_group">Are you sure you want to DELETE this Group?</string>
     <string name="quit_the_group">Are you sure you want to QUIT this Group?</string>
+    <string name="close_the_group">Are you sure you want to CLOSE this Group?</string>
 </resources>

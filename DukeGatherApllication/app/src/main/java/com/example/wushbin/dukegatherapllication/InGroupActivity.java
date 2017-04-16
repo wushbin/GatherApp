@@ -224,7 +224,10 @@ public class InGroupActivity extends AppCompatActivity{
                 startActivity(groupInfoIntent);
                 return true;
             case R.id.action_close:
-
+                showCloseConfirmationDialog();
+                return true;
+            case R.id.action_open:
+                openTheGroup();
                 return true;
             case R.id.action_quit:
                 showQuitConfirmationDialog();
@@ -232,16 +235,12 @@ public class InGroupActivity extends AppCompatActivity{
             case R.id.action_delete:
                 deleteGroup();
                 return true;
-            
-
         }
         return super.onOptionsItemSelected(item);
     }
-
     /**
      * quite from group
      */
-
     //show quit group dialogue
     public void showQuitConfirmationDialog( ) {
         // Create an AlertDialog.Builder and set the message, and click listeners
@@ -265,8 +264,6 @@ public class InGroupActivity extends AppCompatActivity{
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
-
 
     private void quitFromGroup(){
         Query userRef = mMessagesDatabaseReference.child("User").orderByChild("userName").equalTo(mUsername);
@@ -342,5 +339,42 @@ public class InGroupActivity extends AppCompatActivity{
 
     private void deleteThisGroup(){
         mMessagesDatabaseReference.removeValue();
+    }
+
+    /**
+     * close the group
+     */
+    public void showCloseConfirmationDialog( ) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.close_the_group);
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                closeTheGroup();
+                //finish();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //deleteThisGroup();
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public void closeTheGroup(){
+        mMessagesDatabaseReference.child("openStatus").setValue(false);
+    }
+
+    /**
+     * Open the group
+     */
+    public void openTheGroup(){
+        mMessagesDatabaseReference.child("openStatus").setValue(true);
     }
 }
