@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
                     for(DataSnapshot memberChild : membersChildren){
                         User member = memberChild.getValue(User.class);
                         if (member != null) {
-                            Log.v(TAG + "child", member.getUserName());
+                            //Log.v(TAG + "child", member.getUserName());
                             memberList.add(member);
                         }
                     }
@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         groupIntent.putExtra("memberEmail",mUserEmail);
         groupIntent.putExtra("postKey",currentPost.getKey());
         groupIntent.putExtra("existStatus", existStatus);
-        Log.v(TAG+"toGro",String.valueOf(existStatus));
+        //Log.v(TAG+"toGro",String.valueOf(existStatus));
         //Log.v(TAG,currentPost.getKey());
         startActivity(groupIntent);
     }

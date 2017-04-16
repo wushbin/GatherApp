@@ -11,4 +11,6 @@
     <string name="join_the_group">Join this group?</string>
     <string name="confirm">Yes!</string>
     <string name="cancel">Nope!</string>
+    <string name="delete_the_group">Are you sure you want to DELETE this Group?</string>
+    <string name="quit_the_group">Are you sure you want to QUIT this Group?</string>
 </resources>
