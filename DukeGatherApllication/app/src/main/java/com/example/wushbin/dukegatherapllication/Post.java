@@ -1,6 +1,8 @@
 package com.example.wushbin.dukegatherapllication;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by wushbin on 3/8/17.
@@ -70,5 +72,16 @@ public class Post {
     }
     public boolean getOpenStatus(){
         return openStatus;
+    }
+
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("fromPlace",fromPlace);
+        result.put("toPlace",toPlace);
+        result.put("leaveTime",leaveTime);
+        result.put("leaveDate",leaveDate);
+        result.put("numOfPeople",numOfPeople);
+        return result;
     }
 }

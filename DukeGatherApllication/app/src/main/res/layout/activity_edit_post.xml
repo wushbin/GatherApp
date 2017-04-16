@@ -1,15 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <EditText
-        style="@style/EditorFieldStyle"
-        android:id="@+id/post_edit_from"
-        android:hint="From"/>
-    <EditText
-        style="@style/EditorFieldStyle"
-        android:id="@+id/post_edit_to"
-        android:hint="To"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/PostStyle"
+            android:text="From"/>
+        <EditText
+            style="@style/EditorFieldStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:hint="departure"
+            android:id="@+id/post_edit_from"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/PostStyle"
+            android:text="To"/>
+        <EditText
+            style="@style/EditorFieldStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:hint="Destination"
+            android:id="@+id/post_edit_to"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/PostStyle"
+            android:text="Date"/>
+        <EditText
+            style="@style/EditorFieldStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:hint="mm/dd/yyyy"
+            android:id="@+id/post_edit_date"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/PostStyle"
+            android:text="Time"/>
+        <EditText
+            style="@style/EditorFieldStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:hint="hh-mm"
+            android:id="@+id/post_edit_time"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/PostStyle"
+            android:text="Number"/>
+        <EditText
+            style="@style/EditorFieldStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:hint="Number of Menbers"
+            android:id="@+id/post_edit_num"/>
+    </LinearLayout>
+
 </LinearLayout>

@@ -55,7 +55,7 @@
                 android:value=".MainActivity"/>
         </activity>
 
-        <!-- Setting Activity -->
+        <!-- Create Post Activity -->
         <activity
             android:name=".CreatePostActivity"
             android:parentActivityName=".MainActivity"
@@ -70,6 +70,16 @@
             android:name=".GroupInfoActivity"
             android:parentActivityName=".MainActivity"
             android:label="Group Information">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
+        <!-- Edit Group Information Activity -->
+        <activity
+            android:name=".EditPostActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="Post">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
