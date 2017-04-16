@@ -7,19 +7,21 @@
         android:title="Setting"
         app:showAsAction="never">
     </item>
-
     <item
         android:id="@+id/action_members"
         android:title="Members"
         app:showAsAction="never">
     </item>
-
     <item
         android:id="@+id/action_quit"
         android:title="Quit"
         app:showAsAction="never">
     </item>
-
+    <item
+        android:id="@+id/action_close"
+        android:title="Close"
+        app:showAsAction="never">
+    </item>
     <item
         android:id="@+id/action_delete"
         android:title="Delete"
