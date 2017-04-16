@@ -223,12 +223,14 @@ public class InGroupActivity extends AppCompatActivity{
                 groupInfoIntent.putExtra("existStatus",exitStatus);
                 startActivity(groupInfoIntent);
                 return true;
+            case R.id.action_close:
+
+                return true;
             case R.id.action_quit:
                 showQuitConfirmationDialog();
                 return true;
             case R.id.action_delete:
                 deleteGroup();
-                //finish();
                 return true;
             
 

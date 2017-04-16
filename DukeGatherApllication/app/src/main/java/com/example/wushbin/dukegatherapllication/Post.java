@@ -15,20 +15,22 @@ public class Post {
     private String leaveDate;
     private int numOfPeople;
     private  String userName;
-
     private String key;
     private ArrayList<User> Users;
-
+    private boolean openStatus;
     public Post(){
+        this.openStatus = true;
     }
 
-    public Post( String fromPlace, String toPlace, String leaveTime, String leaveDate, int numOfPeople, String userName){
+    public Post( String fromPlace, String toPlace, String leaveTime, String leaveDate,
+                 int numOfPeople, String userName){
         this.fromPlace = fromPlace;
         this.toPlace = toPlace;
         this.leaveTime = leaveTime;
         this.leaveDate = leaveDate;
         this.numOfPeople = numOfPeople;
         this.userName = userName;
+        this.openStatus = true;
     }
 
     public String getFromPlace() {
@@ -63,5 +65,10 @@ public class Post {
     public ArrayList<User> getUsers(){
         return Users;
     }
-
+    public void setOpenStatus(boolean openStatus){
+        this.openStatus = openStatus;
+    }
+    public boolean getOpenStatus(){
+        return openStatus;
+    }
 }
