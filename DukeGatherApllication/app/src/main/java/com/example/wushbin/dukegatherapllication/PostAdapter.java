@@ -69,7 +69,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
             //enter.setGravity(right);
         }*/
         boolean mOpenStatus = currentPost.getOpenStatus();
-        Log.v("**PostAdapter",String.valueOf(mOpenStatus));
+        //Log.v("**PostAdapter",String.valueOf(mOpenStatus));
         if(! mOpenStatus){
             join.setEnabled(false);
             join.setBackgroundResource(R.color.button_disable);
