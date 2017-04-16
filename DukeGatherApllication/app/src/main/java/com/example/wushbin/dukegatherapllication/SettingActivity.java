@@ -5,22 +5,37 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.wushbin.dukegatherapllication.data.UserContract;
 import com.example.wushbin.dukegatherapllication.data.UserContract.UserEntry;
 import com.example.wushbin.dukegatherapllication.data.UserDbHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 /**
  * Created by wushbin on 3/3/17.
@@ -29,41 +44,96 @@ import com.example.wushbin.dukegatherapllication.data.UserDbHelper;
 public class SettingActivity extends AppCompatActivity {
     private Spinner mGenderSpinner;
     private int mGender = 0;
-    public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String FirstName = "firstNameKey";
-    public static final String LastName = "lastNameKey";
-    public static final String Gender = "genderKey";
-    public static final String Email = "emailKey";
-    SharedPreferences sharedpreferences;
-    EditText lastName;
-    EditText firstName;
+
+    private static final int RC_SIGN_IN = 1;
+    private static final int RC_PHOTO_PICKER =  2;
+    private StorageReference mChatPhotosStorageReference;
+    private FirebaseStorage mFirebaseStorage;
+
+
+    EditText Name;
     EditText email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        lastName = (EditText)findViewById(R.id.last_name);
-        firstName = (EditText)findViewById(R.id.first_name);
+        Name = (EditText)findViewById(R.id.mname);
         email = (EditText)findViewById(R.id.edit_email);
         mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        String mLastName;
-        String mFirstName;
-        String mEmail;
-        mLastName = sharedpreferences.getString(LastName,null);
-        mFirstName = sharedpreferences.getString(FirstName,null);
-        mEmail = sharedpreferences.getString(Email,null);
-        mGender = sharedpreferences.getInt(Gender,0);
+        String mName="";
+        String mEmail = "";
 
-        lastName.setText(mLastName);
-        firstName.setText(mFirstName);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            Uri userurl = user.getPhotoUrl();
+            if(userurl!=null){
+                ImageView iconforuser = (ImageView)findViewById(R.id.user_view);
+                Glide.with(iconforuser.getContext()).load(userurl).into(iconforuser);
+            }
+        }
+
+     //   Uri photoUrl;
+
+        if(user!=null){
+            mName = user.getDisplayName();
+            mEmail = user.getEmail();
+       //     photoUrl = user.getPhotoUrl();
+        }
+        mFirebaseStorage = FirebaseStorage.getInstance();
+        mChatPhotosStorageReference = mFirebaseStorage.getReference().child("chat_photos");
+        Button uploadPhoto = (Button)findViewById(R.id.uploadphoto) ;
+        uploadPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/jpeg");
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY,true);
+                startActivityForResult(intent.createChooser(intent,"Complete action using"), RC_PHOTO_PICKER);
+            }
+        });
+
+
+        Name.setText(mName);
         email.setText(mEmail);
 
         setupSpinner();
         mGenderSpinner.setSelection(mGender);
         //displayDatabaseInfo();
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK){
+            Uri selectedImageUri = data.getData();
+            StorageReference photoRef =
+                    mChatPhotosStorageReference.child(selectedImageUri.getLastPathSegment());
+            // it upload file and add an listener
+            photoRef.putFile(selectedImageUri).addOnSuccessListener
+                    (this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                           Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            Toast.makeText(SettingActivity.this,"photo uploaded", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setPhotoUri(downloadUrl)
+                                    .build();
+                            user.updateProfile(profileUpdates);
+                            ImageView iconforuser = (ImageView)findViewById(R.id.user_view);
+                            Glide.with(iconforuser.getContext()).load(downloadUrl).into(iconforuser);
+
+
+                          //  Message chatMessage = new Message(mUsername, null, downloadUrl.toString());
+                          //  mMessagesDatabaseReference.child("message").push().setValue(chatMessage);
+                        }
+                    });
+    }
+    }
+
+
 
     private void setupSpinner() {
         ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
@@ -104,34 +174,43 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences.Editor editor = sharedpreferences.edit();
         switch (item.getItemId()) {
             case R.id.save:
-                String first  = firstName.getText().toString();
-                String last  = lastName.getText().toString();
+                String sname  = Name.getText().toString();
                 String em  = email.getText().toString();
-                editor.putString(FirstName, first);
-                editor.putString(LastName, last);
-                editor.putString(Email, em);
-                editor.putInt(Gender,mGender);
-                editor.commit();
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(sname)
+                        .build();
+
+                user.updateProfile(profileUpdates)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                            }
+                        });
+                user.updateEmail(em)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                            }
+                        });
+
                 Toast.makeText(this,"saved",Toast.LENGTH_LONG).show();
 
                 //save the information into the sharePreference
                 return true;
             case R.id.discard:
                 // discard edition
-                lastName.setText("");
-                firstName.setText("");
+                Name.setText("");
                 email.setText("");
                 mGenderSpinner.setSelection(0);
                 return true;
             case R.id.clear:
                 // discard edition
-                editor.clear();
-                editor.commit();
-                lastName.setText("");
-                firstName.setText("");
+                Name.setText("");
                 email.setText("");
                 mGenderSpinner.setSelection(0);
                 return true;
@@ -141,25 +220,4 @@ public class SettingActivity extends AppCompatActivity {
 
 
 
-    private void displayDatabaseInfo() {
-        // To access our database, we instantiate our subclass of SQLiteOpenHelper
-        // and pass the context, which is the current activity.
-        UserDbHelper mDbHelper = new UserDbHelper(this);
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        // Perform this raw SQL query "SELECT * FROM pets"
-        // to get a Cursor that contains all rows from the pets table.
-        Cursor cursor = db.rawQuery("SELECT * FROM " + UserEntry.TABLE_NAME, null);
-
-        try {
-            // Display the number of rows in the Cursor (which reflects the number of rows in the
-            // pets table in the database).
-            TextView displayView = (TextView) findViewById(R.id.information);
-            displayView.setText("Number of rows in users database table: " + cursor.getCount());
-        } finally {
-            // Always close the cursor when you're done reading from it. This releases all its
-            // resources and makes it invalid.
-            cursor.close();
-        }
-    }
 }
