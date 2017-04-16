@@ -18,7 +18,7 @@ Getting Started
 
 Overall structure
 -----------------
-- There are ? mian interfaces in our app, they are:
+- There are 7 mian interfaces in our app, they are:
 - Post board (MainActivity), display all post groups, which can jump to search, create new post, in group chatting interface.
 - Search (SearchActivity), search for certain groups in post board, which can jump to post board.
 - Create new post (CreatePostActivity), create a new post in post board, which can jump to post board.
