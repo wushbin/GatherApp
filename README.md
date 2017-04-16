@@ -16,6 +16,26 @@ Getting Started
 - Android Plugin Version should be 2.2.3
 - There are some bug reported on the newest version of gradle, so now we can just use the gradle version as mentioned above. 
 
+Overall structure
+-----------------
+
+Key APIs into the back end
+--------------------------
+- We are using Firebase as back end for our app. We also have used some APIs for images displaying
+- APIs includes:
+* Authencation
+ 1. com.firebaseui:firebase-ui-auth:1.2.0
+ 1. com.google.firebase:firebase-auth
+* Real time database
+ 1. com.google.firebase:firebase-database:10.2.1
+ 2. com.google.firebase:firebase-core:10.2.1
+* Firebase storage
+ 1. com.google.firebase:firebase-storage:10.2.1
+* Message Dependency
+ 1. com.google.firebase:firebase-messaging:10.2.1
+* Image displaying
+ 1. com.github.bumptech.glide:glide:3.6.1
+
 Tak Card before April 12
 ------------------------
 
