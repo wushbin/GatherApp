@@ -212,8 +212,9 @@ public class InGroupActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_edit:
                 // User chose the "Settings" item, show the app settings UI...
+                editPostInfo();
                 return true;
             case R.id.action_members:
                 // User chose the "members" item
@@ -297,8 +298,12 @@ public class InGroupActivity extends AppCompatActivity{
     /**
      * Update Post
      */
-    public void updatePostInfo(){
-
+    public void editPostInfo(){
+        if(! Owner.equals(mUsername)){
+            Toast.makeText(InGroupActivity.this, "You're not the Owner of this group.", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(InGroupActivity.this, "Edit The Post.", Toast.LENGTH_LONG).show();
+        }
     }
 
 
