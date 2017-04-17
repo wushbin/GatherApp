@@ -32,7 +32,7 @@ public class GroupInfoActivity extends AppCompatActivity {
     private ListView mUserListView;
 
     private String postKey;
-    private String TAG = "** GroupInfo **";
+    private String TAG = "**GroupInfo **";
     private ChildEventListener mChildEventListener;
     private TextView OwnerNameView;
 
