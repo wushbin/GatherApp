@@ -41,6 +41,7 @@ public class EditPostActivity extends AppCompatActivity {
     private String postKey;
     private String mUsername;
     private Post currentPost;
+    private boolean onlyShowInfo;
 
     private boolean mPostHasChanged = false;
 
@@ -59,7 +60,7 @@ public class EditPostActivity extends AppCompatActivity {
         postKey = getIntent().getStringExtra("postKey");
         Log.v(TAG,postKey);
         mUsername = getIntent().getStringExtra("memberName");
-
+        onlyShowInfo = getIntent().getExtras().getBoolean("onlyShow");
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mPostDatabaseReference = mFirebaseDatabase.getReference().child("post");
         mCurrentPostDatabaseReference = mPostDatabaseReference.child(postKey);
@@ -68,20 +69,26 @@ public class EditPostActivity extends AppCompatActivity {
         mDateEditText = (EditText) findViewById(R.id.post_edit_date);
         mTimeEditText = (EditText) findViewById(R.id.post_edit_time);
         mNumEditText = (EditText) findViewById(R.id.post_edit_num);
-
         mFromEditText.setOnTouchListener(mTouchListener);
         mToEditText.setOnTouchListener(mTouchListener);
         mDateEditText.setOnTouchListener(mTouchListener);
         mTimeEditText.setOnTouchListener(mTouchListener);
         mNumEditText.setOnTouchListener(mTouchListener);
-
+        if(onlyShowInfo){
+            setTitle("Post Information");
+            invalidateOptionsMenu();
+            mFromEditText.setEnabled(false);
+            mToEditText.setEnabled(false);
+            mDateEditText.setEnabled(false);
+            mTimeEditText.setEnabled(false);
+            mNumEditText.setEnabled(false);
+        }
         EditText editDate = (EditText)findViewById(R.id.post_edit_date);
         editDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             public void onFocusChange(View view, boolean hasfocus){
                 if(hasfocus){
                     DialogFragment newFragment = new DatePickerFragment(view);
                     newFragment.show(getSupportFragmentManager(), "datePicker");
-
                 }
             }
 
@@ -92,7 +99,6 @@ public class EditPostActivity extends AppCompatActivity {
                 if(hasfocus){
                     DialogFragment newFragment = new TimePickerFragment(view);
                     newFragment.show(getSupportFragmentManager(), "timePicker");
-
                 }
             }
 
@@ -114,7 +120,6 @@ public class EditPostActivity extends AppCompatActivity {
             }
         };
         mCurrentPostDatabaseReference.addValueEventListener(currentPostListener);
-
     }
 
     /**
@@ -124,6 +129,17 @@ public class EditPostActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_edit_post,menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if(onlyShowInfo){
+            MenuItem saveAction = menu.findItem(R.id.action_edit_save);
+            saveAction.setVisible(false);
+        }
+        return true;
+
     }
 
     @Override
