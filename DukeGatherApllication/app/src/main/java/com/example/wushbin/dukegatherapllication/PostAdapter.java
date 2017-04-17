@@ -65,7 +65,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
         //Log.v("**PostAdapter**",String.valueOf(mOpenStatus));
         Button join = (Button) listItemView.findViewById(R.id.post_join);
         Button enter = (Button) listItemView.findViewById(R.id.post_enter);
-        if(! mOpenStatus){
+
+        if(! mOpenStatus || (currentPost.getCurrentNumofMembers() >= currentPost.getNumOfPeople())){
             Log.v("**PostAdapter**",currentPost.getKey());
             join.setVisibility(View.GONE);
             //join.setBackgroundResource(R.color.button_disable);
