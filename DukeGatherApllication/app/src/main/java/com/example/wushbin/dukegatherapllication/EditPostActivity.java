@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -74,6 +75,29 @@ public class EditPostActivity extends AppCompatActivity {
         mTimeEditText.setOnTouchListener(mTouchListener);
         mNumEditText.setOnTouchListener(mTouchListener);
 
+        EditText editDate = (EditText)findViewById(R.id.post_edit_date);
+        editDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            public void onFocusChange(View view, boolean hasfocus){
+                if(hasfocus){
+                    DialogFragment newFragment = new DatePickerFragment(view);
+                    newFragment.show(getSupportFragmentManager(), "datePicker");
+
+                }
+            }
+
+        });
+        EditText editTime = (EditText)findViewById(R.id.post_edit_time);
+        editTime.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            public void onFocusChange(View view, boolean hasfocus){
+                if(hasfocus){
+                    DialogFragment newFragment = new TimePickerFragment(view);
+                    newFragment.show(getSupportFragmentManager(), "timePicker");
+
+                }
+            }
+
+        });
+
         final ValueEventListener currentPostListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -137,6 +161,7 @@ public class EditPostActivity extends AppCompatActivity {
         Post updatedPost = new Post(fromString,toString,timeString,dateString,numOfPeople,mUsername);
         Map<String, Object> postValues = updatedPost.toMap();
         mCurrentPostDatabaseReference.updateChildren(postValues);
+        NavUtils.navigateUpFromSameTask(EditPostActivity.this);
     }
 
 
