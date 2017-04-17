@@ -110,19 +110,23 @@ public class CreatePostActivity extends AppCompatActivity {
         mCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String from = mFromEditText.getText().toString();
-                String to = mToEditText.getText().toString();
-                String leaveTime = editTime.getText().toString();
-                String leaveDate = editDate.getText().toString();
-                Log.v("leavet",leaveTime);
-                Log.v("leaveD",leaveDate);
-                Post newPost = new Post(from, to,leaveTime,leaveDate,quantityOfPeoplePost,mUsername);
-                postKey = mPostDatabaseReference.push().getKey();
-                mPostDatabaseReference.child(postKey).setValue(newPost);
-                User postOwner = new User(mUsername,mUserEmail,String.valueOf(mUserPhotoUri));
-                mPostDatabaseReference.child(postKey).child("User").push().setValue(postOwner);
-                Toast.makeText(CreatePostActivity.this,"Posted", Toast.LENGTH_SHORT).show();
-                NavUtils.navigateUpFromSameTask(CreatePostActivity.this);
+                String from = mFromEditText.getText().toString().trim();
+                String to = mToEditText.getText().toString().trim();
+                String leaveTime = editTime.getText().toString().trim();
+                String leaveDate = editDate.getText().toString().trim();
+
+                if(from.equals("") || to.equals("")|| leaveTime.equals("") || leaveDate.equals("")){
+                    Toast.makeText(CreatePostActivity.this,"Please check your input", Toast.LENGTH_SHORT).show();
+                }else {
+                    Log.v("leavet", leaveTime);
+                    Log.v("leaveD", leaveDate);
+                    Post newPost = new Post(from, to, leaveTime, leaveDate, quantityOfPeoplePost, mUsername);
+                    postKey = mPostDatabaseReference.push().getKey();
+                    mPostDatabaseReference.child(postKey).setValue(newPost);
+                    User postOwner = new User(mUsername, mUserEmail, String.valueOf(mUserPhotoUri));
+                    mPostDatabaseReference.child(postKey).child("User").push().setValue(postOwner);
+                    NavUtils.navigateUpFromSameTask(CreatePostActivity.this);
+                }
             }
         });
 
