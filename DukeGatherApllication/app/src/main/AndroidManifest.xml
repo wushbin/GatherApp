@@ -68,21 +68,21 @@
         <!-- Group Information Activity -->
         <activity
             android:name=".GroupInfoActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="Group Information">
+            android:parentActivityName=".InGroupActivity"
+            android:label="Member Information">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".InGroupActivity"/>
         </activity>
 
         <!-- Edit Group Information Activity -->
         <activity
             android:name=".EditPostActivity"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".InGroupActivity"
             android:label="Post">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".InGroupActivity"/>
         </activity>
 
     </application>

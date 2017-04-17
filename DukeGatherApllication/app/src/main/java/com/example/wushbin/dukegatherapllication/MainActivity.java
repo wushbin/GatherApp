@@ -120,9 +120,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
                 //TODO: pass data the a new intent
-                intent.putExtra("userName",mUsername);
-                intent.putExtra("userEmail",mUserEmail);
-                Log.v(TAG,mUsername);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user!=null){
                     if(user.isEmailVerified() == false){
@@ -237,7 +234,10 @@ public class MainActivity extends AppCompatActivity {
                         mPostAdapter.add(mPost);
                     }
                     else {
-                        if ( (from1.equals(mPost.getFromPlace() ) || from1.equals("")) && (to1.equals(mPost.getToPlace()) || to1.equals(("")) )&&(date1.equals(mPost.getLeaveDate())||date1.equals(""))&&(time1.equals(mPost.getLeaveTime())||time1.equals("")) ) {
+                        if ( (from1.equals(mPost.getFromPlace() ) || from1.equals(""))
+                                && (to1.equals(mPost.getToPlace()) || to1.equals(("")) )
+                                &&(date1.equals(mPost.getLeaveDate())||date1.equals(""))
+                                &&(time1.equals(mPost.getLeaveTime())||time1.equals("")) ) {
                             mPostAdapter.add(mPost);
                         }
                     }
