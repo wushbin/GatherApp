@@ -82,6 +82,7 @@ public class Post {
         result.put("leaveTime",leaveTime);
         result.put("leaveDate",leaveDate);
         result.put("numOfPeople",numOfPeople);
+        result.put("openStatus",openStatus);
         return result;
     }
 }

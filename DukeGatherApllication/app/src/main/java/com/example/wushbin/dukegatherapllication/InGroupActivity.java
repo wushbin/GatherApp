@@ -224,12 +224,6 @@ public class InGroupActivity extends AppCompatActivity{
                 // User chose the "members" item
                 showMemberInformation();
                 return true;
-            case R.id.action_close:
-                showCloseConfirmationDialog();
-                return true;
-            case R.id.action_open:
-                openTheGroup();
-                return true;
             case R.id.action_quit:
                 showQuitConfirmationDialog();
                 return true;
@@ -407,7 +401,7 @@ public class InGroupActivity extends AppCompatActivity{
     public void showPostInfo(){
         Intent showPostInfoIntent = new Intent(InGroupActivity.this, EditPostActivity.class);
         showPostInfoIntent.putExtra("postKey",postKey);
-        showPostInfoIntent.putExtra("memberName",mUsername);
+        showPostInfoIntent.putExtra("existStatus",existStatus);
         showPostInfoIntent.putExtra("onlyShow",true);
         startActivity(showPostInfoIntent);
 

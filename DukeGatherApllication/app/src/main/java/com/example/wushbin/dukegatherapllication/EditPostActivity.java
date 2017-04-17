@@ -14,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +41,8 @@ public class EditPostActivity extends AppCompatActivity {
     private EditText mDateEditText;
     private EditText mTimeEditText;
     private EditText mNumEditText;
+    private Switch mSwitchView;
+
     private String postKey;
     private String mUsername;
     private boolean existStatus;
@@ -73,11 +77,19 @@ public class EditPostActivity extends AppCompatActivity {
         mDateEditText = (EditText) findViewById(R.id.post_edit_date);
         mTimeEditText = (EditText) findViewById(R.id.post_edit_time);
         mNumEditText = (EditText) findViewById(R.id.post_edit_num);
+        mSwitchView = (Switch) findViewById(R.id.switch_open);
         mFromEditText.setOnTouchListener(mTouchListener);
         mToEditText.setOnTouchListener(mTouchListener);
         mDateEditText.setOnTouchListener(mTouchListener);
         mTimeEditText.setOnTouchListener(mTouchListener);
         mNumEditText.setOnTouchListener(mTouchListener);
+        mSwitchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mPostHasChanged = true;
+            }
+        });
+
         if(onlyShowInfo){
             setTitle("Post Information");
             invalidateOptionsMenu();
@@ -86,6 +98,8 @@ public class EditPostActivity extends AppCompatActivity {
             mDateEditText.setEnabled(false);
             mTimeEditText.setEnabled(false);
             mNumEditText.setEnabled(false);
+            mSwitchView.setEnabled(false);
+            mPostHasChanged = false;
         }
         EditText editDate = (EditText)findViewById(R.id.post_edit_date);
         editDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
@@ -118,6 +132,8 @@ public class EditPostActivity extends AppCompatActivity {
                 mDateEditText.setText(currentPost.getLeaveDate());
                 mTimeEditText.setText(currentPost.getLeaveTime());
                 mNumEditText.setText(String.valueOf(currentPost.getNumOfPeople()));
+                mSwitchView.setChecked(currentPost.getOpenStatus());
+                mPostHasChanged = false;
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -155,6 +171,7 @@ public class EditPostActivity extends AppCompatActivity {
             case android.R.id.home:
                 Log.v(TAG,String.valueOf(mPostHasChanged));
                 if (!mPostHasChanged) {
+                    Log.v("info_back/exist?", String.valueOf(existStatus));
                     backToGroupActivity();
                     //NavUtils.navigateUpFromSameTask(EditPostActivity.this);
                     return true;
@@ -180,7 +197,9 @@ public class EditPostActivity extends AppCompatActivity {
         String timeString = mTimeEditText.getText().toString().trim();
         String numString = mNumEditText.getText().toString().trim();
         int numOfPeople = Integer.parseInt(numString);
+        boolean openStatus = mSwitchView.isChecked();
         Post updatedPost = new Post(fromString,toString,timeString,dateString,numOfPeople,mUsername);
+        updatedPost.setOpenStatus(openStatus);
         Map<String, Object> postValues = updatedPost.toMap();
         mCurrentPostDatabaseReference.updateChildren(postValues);
         backToGroupActivity();
