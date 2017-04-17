@@ -18,6 +18,12 @@
     </item>
 
     <item
+        android:id="@+id/main_refresh"
+        android:title="Refresh"
+        app:showAsAction="never">
+    </item>
+
+    <item
         android:id="@+id/main_signed_out"
         android:title="Sign Out"
         app:showAsAction="never">

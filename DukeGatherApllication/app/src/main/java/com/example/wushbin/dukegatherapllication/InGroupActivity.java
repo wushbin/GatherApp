@@ -88,7 +88,7 @@ public class InGroupActivity extends AppCompatActivity{
         postKey = getIntent().getExtras().getString("postKey");
         existStatus = getIntent().getExtras().getBoolean("existStatus");
 
-        Toast.makeText(InGroupActivity.this,String.valueOf(postKey), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(InGroupActivity.this,String.valueOf(postKey), Toast.LENGTH_SHORT).show();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("post").child(postKey);
 
@@ -96,6 +96,7 @@ public class InGroupActivity extends AppCompatActivity{
             User currentUser = new User(mUsername,mUserEmail,mUserPhotoUri.toString());
             String currentUserKey = mMessagesDatabaseReference.child("User").push().getKey();
             mMessagesDatabaseReference.child("User").child(currentUserKey).setValue(currentUser);
+            existStatus = true;
         }
 
         mFirebaseStorage = FirebaseStorage.getInstance();
@@ -248,6 +249,7 @@ public class InGroupActivity extends AppCompatActivity{
         builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 quitFromGroup();
+                existStatus = false;
                 finish();
             }
         });
@@ -321,7 +323,7 @@ public class InGroupActivity extends AppCompatActivity{
      * delete group
      */
     public void deleteGroup(){
-        Log.v(TAG, Owner);
+        //Log.v(TAG, Owner);
         if(! Owner.equals(mUsername)){
             Toast.makeText(InGroupActivity.this, "You're not the Owner of this group.", Toast.LENGTH_LONG).show();
         }else{
