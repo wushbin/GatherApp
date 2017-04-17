@@ -123,7 +123,15 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("userName",mUsername);
                 intent.putExtra("userEmail",mUserEmail);
                 Log.v(TAG,mUsername);
-                startActivityForResult(intent, Intent_Constants.Intent_Post_Code);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user!=null){
+                    if(user.isEmailVerified() == false){
+                        Toast.makeText(MainActivity.this,"Please verify your email first !", Toast.LENGTH_SHORT).show();
+                    }else{
+                        startActivityForResult(intent, Intent_Constants.Intent_Post_Code);
+                    }
+                }
+           ;
             }
         });
 
@@ -277,7 +285,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "join" button, so join the group.
                 //TODO: implement the enrollment function
-                getIntoInGroupActivity(currentPost,existStatus);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user!=null){
+                    if(user.isEmailVerified() == false){
+                        Toast.makeText(MainActivity.this,"Please verify your email first !", Toast.LENGTH_SHORT).show();
+                    }else{
+                        getIntoInGroupActivity(currentPost,existStatus);
+                    }
+                }
+
 
             }
         });

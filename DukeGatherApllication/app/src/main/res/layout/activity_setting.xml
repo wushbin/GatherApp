@@ -96,6 +96,14 @@
         android:layout_height="@dimen/list_item_height"
         android:src="@mipmap/ic_launcher"
         android:layout_gravity="center_horizontal"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verifyemail"
+        android:text="verify email"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:background="@color/colorAccent"/>
 
 
 </LinearLayout>

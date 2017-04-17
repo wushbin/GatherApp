@@ -53,6 +53,7 @@ public class SettingActivity extends AppCompatActivity {
 
     EditText Name;
     EditText email;
+    boolean emailVerified = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -64,7 +65,7 @@ public class SettingActivity extends AppCompatActivity {
         String mName="";
         String mEmail = "";
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
             Uri userurl = user.getPhotoUrl();
             if(userurl!=null){
@@ -78,8 +79,28 @@ public class SettingActivity extends AppCompatActivity {
         if(user!=null){
             mName = user.getDisplayName();
             mEmail = user.getEmail();
+            emailVerified = user.isEmailVerified();
        //     photoUrl = user.getPhotoUrl();
         }
+        Button verifybutton = (Button)findViewById(R.id.verifyemail);
+        if(emailVerified == true){
+            verifybutton.setEnabled(false);
+            verifybutton.setBackgroundResource(R.color.button_disable);
+        }
+        verifybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user.sendEmailVerification()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SettingActivity.this,"Verification Email Send", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
         mFirebaseStorage = FirebaseStorage.getInstance();
         mChatPhotosStorageReference = mFirebaseStorage.getReference().child("chat_photos");
         Button uploadPhoto = (Button)findViewById(R.id.uploadphoto) ;
