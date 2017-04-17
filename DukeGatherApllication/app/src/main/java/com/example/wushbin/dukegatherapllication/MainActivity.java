@@ -177,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.main_signed_out:
                 AuthUI.getInstance().signOut(this);
+            case R.id.main_refresh:
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
