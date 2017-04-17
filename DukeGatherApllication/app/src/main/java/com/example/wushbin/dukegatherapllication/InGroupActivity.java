@@ -50,13 +50,15 @@ public class InGroupActivity extends AppCompatActivity{
 
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 140;
     private static final int RC_PHOTO_PICKER =  2;
+    private static final int RC_EDIT_POST =3;
+    private static final int RC_MEMBER_INFO =4;
     private ListView mMessageListView;
     private MessageAdapter mMessageAdapter;
     private EditText mMessageEditText;
     private Button mSendButton;
     private ImageButton mPhotoPickerButton;
 
-    private boolean exitStatus;
+    private boolean existStatus;
     private String postKey;
     private String mUsername;
     private String mUserEmail;
@@ -83,14 +85,14 @@ public class InGroupActivity extends AppCompatActivity{
         mUserEmail = user.getEmail();
         mUserPhotoUri = user.getPhotoUrl();
 
-        postKey = getIntent().getStringExtra("postKey");
-        exitStatus = getIntent().getExtras().getBoolean("existStatus");
+        postKey = getIntent().getExtras().getString("postKey");
+        existStatus = getIntent().getExtras().getBoolean("existStatus");
 
         Toast.makeText(InGroupActivity.this,String.valueOf(postKey), Toast.LENGTH_SHORT).show();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("post").child(postKey);
 
-        if(exitStatus == false){
+        if(existStatus == false){
             User currentUser = new User(mUsername,mUserEmail,mUserPhotoUri.toString());
             String currentUserKey = mMessagesDatabaseReference.child("User").push().getKey();
             mMessagesDatabaseReference.child("User").child(currentUserKey).setValue(currentUser);
@@ -300,7 +302,8 @@ public class InGroupActivity extends AppCompatActivity{
     public void showMemberInformation(){
         Intent groupInfoIntent = new Intent(InGroupActivity.this, GroupInfoActivity.class);
         groupInfoIntent.putExtra("postKey",postKey);
-        startActivity(groupInfoIntent);
+        groupInfoIntent.putExtra("existStatus",existStatus);
+        startActivityForResult(groupInfoIntent,RC_MEMBER_INFO);
     }
 
 
@@ -314,8 +317,8 @@ public class InGroupActivity extends AppCompatActivity{
             Toast.makeText(InGroupActivity.this, "Edit The Post.", Toast.LENGTH_LONG).show();
             Intent editInfoIntent = new Intent(InGroupActivity.this, EditPostActivity.class);
             editInfoIntent.putExtra("postKey",postKey);
-            editInfoIntent.putExtra("memberName",mUsername);
-            startActivity(editInfoIntent);
+            editInfoIntent.putExtra("existStatus",existStatus);
+            startActivityForResult(editInfoIntent, RC_EDIT_POST);
         }
     }
 

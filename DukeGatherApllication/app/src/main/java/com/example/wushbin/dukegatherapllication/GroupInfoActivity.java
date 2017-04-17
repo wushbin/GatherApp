@@ -1,10 +1,13 @@
 package com.example.wushbin.dukegatherapllication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +35,7 @@ public class GroupInfoActivity extends AppCompatActivity {
     private ListView mUserListView;
 
     private String postKey;
+    private boolean existStatus;
     private String TAG = "**GroupInfo **";
     private ChildEventListener mChildEventListener;
     private TextView OwnerNameView;
@@ -43,6 +47,7 @@ public class GroupInfoActivity extends AppCompatActivity {
         OwnerNameView = (TextView) findViewById(R.id.group_owner);
 
         postKey = getIntent().getStringExtra("postKey");
+        existStatus = getIntent().getExtras().getBoolean("existStatus");
 
         Log.v(TAG,postKey);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -94,5 +99,32 @@ public class GroupInfoActivity extends AppCompatActivity {
             }
         };
         mPostDatabaseReference.child("User").addChildEventListener(mChildEventListener);
+    }
+
+    private void backToGroupActivity(){
+        Intent inGroupIntent = new Intent(GroupInfoActivity.this, InGroupActivity.class);
+        inGroupIntent.putExtra("postKey",postKey);
+        inGroupIntent.putExtra("existStatus",existStatus);
+        //setResult(RESULT_OK,inGroupIntent);
+        //finish();
+        Log.v(TAG+"exist?",postKey);
+        Log.v(TAG+"exist?", String.valueOf(existStatus));
+        startActivity(inGroupIntent);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                backToGroupActivity();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

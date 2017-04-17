@@ -78,21 +78,14 @@ public class SearchActivity extends AppCompatActivity {
                 to1 = to_text.getText().toString();
                 EditText editDate = (EditText)findViewById(R.id.postdate);
                 EditText editTime = (EditText)findViewById(R.id.posttime);
-
                 time1 = editTime.getText().toString();
                 date1 = editDate.getText().toString();
-
-
-
-                //Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                 intent.putExtra("from", from1);
                 intent.putExtra("to", to1);
                 intent.putExtra("time",time1);
                 intent.putExtra("date",date1);
-
                 startActivity(intent);
                 return true;
-
             case android.R.id.home:
                 Intent_Constants.fromSearch = 0;
                 startActivity(intent);
@@ -100,6 +93,4 @@ public class SearchActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

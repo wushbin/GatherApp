@@ -3,6 +3,7 @@ package com.example.wushbin.dukegatherapllication;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -40,6 +41,7 @@ public class EditPostActivity extends AppCompatActivity {
     private EditText mNumEditText;
     private String postKey;
     private String mUsername;
+    private boolean existStatus;
     private Post currentPost;
     private boolean onlyShowInfo;
 
@@ -61,6 +63,8 @@ public class EditPostActivity extends AppCompatActivity {
         Log.v(TAG,postKey);
         mUsername = getIntent().getStringExtra("memberName");
         onlyShowInfo = getIntent().getExtras().getBoolean("onlyShow");
+        existStatus = getIntent().getExtras().getBoolean("existStatus");
+        Log.v(TAG+"existStatus",String.valueOf(existStatus));
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mPostDatabaseReference = mFirebaseDatabase.getReference().child("post");
         mCurrentPostDatabaseReference = mPostDatabaseReference.child(postKey);
@@ -151,14 +155,16 @@ public class EditPostActivity extends AppCompatActivity {
             case android.R.id.home:
                 Log.v(TAG,String.valueOf(mPostHasChanged));
                 if (!mPostHasChanged) {
-                    NavUtils.navigateUpFromSameTask(EditPostActivity.this);
+                    backToGroupActivity();
+                    //NavUtils.navigateUpFromSameTask(EditPostActivity.this);
                     return true;
                 }
                 DialogInterface.OnClickListener discardButtonClickListener =
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                NavUtils.navigateUpFromSameTask(EditPostActivity.this);
+                                backToGroupActivity();
+                                //NavUtils.navigateUpFromSameTask(EditPostActivity.this);
                             }
                         };
                 showUnsavedChangesDialog(discardButtonClickListener);
@@ -177,7 +183,8 @@ public class EditPostActivity extends AppCompatActivity {
         Post updatedPost = new Post(fromString,toString,timeString,dateString,numOfPeople,mUsername);
         Map<String, Object> postValues = updatedPost.toMap();
         mCurrentPostDatabaseReference.updateChildren(postValues);
-        NavUtils.navigateUpFromSameTask(EditPostActivity.this);
+        backToGroupActivity();
+        //NavUtils.navigateUpFromSameTask(EditPostActivity.this);
     }
 
 
@@ -192,7 +199,8 @@ public class EditPostActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // User clicked "Discard" button, close the current activity.
-                        finish();
+                        backToGroupActivity();
+                        //finish();
                     }
                 };
 
@@ -219,6 +227,14 @@ public class EditPostActivity extends AppCompatActivity {
     }
 
 
-
+    private void backToGroupActivity(){
+        Intent inGroupIntent = new Intent(EditPostActivity.this, InGroupActivity.class);
+        inGroupIntent.putExtra("postKey",postKey);
+        inGroupIntent.putExtra("existStatus",existStatus);
+        //setResult(RESULT_OK,inGroupIntent);
+        //finish();
+        Log.v(TAG+"existStatus", String.valueOf(existStatus));
+        startActivity(inGroupIntent);
+    }
 
 }
