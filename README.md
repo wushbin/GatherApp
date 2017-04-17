@@ -19,13 +19,13 @@ Getting Started
 Overall structure
 -----------------
 - There are 7 mian interfaces in our app, they are:
-- Post board (MainActivity), display all post groups, which can jump to search, create new post, in group chatting interface.
-- Search (SearchActivity), search for certain groups in post board, which can jump to post board.
-- Create new post (CreatePostActivity), create a new post in post board, which can jump to post board.
-- In group chatting (InGroupActivity), allow users to chat in the group, which can jump to edit post, group member.
-- Edit post (EditPostActivity), allow owner of the group to change group information.
-- Group member (GroupInfoActivity), allow group members to find information (email, name, photo) about other group members.
-- Setting (SettingActivity), allow users to change his/her own name, email and upload his photo.
+ 1. Post board (MainActivity), display all post groups, which can jump to search, create new post, in group chatting interface.
+ 1. Search (SearchActivity), search for certain groups in post board, which can jump to post board.
+ 1. Create new post (CreatePostActivity), create a new post in post board, which can jump to post board.
+ 1. In group chatting (InGroupActivity), allow users to chat in the group, which can jump to edit post, group member.
+ 1. Edit post (EditPostActivity), allow owner of the group to change group information.
+ 1. Group member (GroupInfoActivity), allow group members to find information (email, name, photo) about other group members.
+ 1. Setting (SettingActivity), allow users to change his/her own name, email and upload his photo.
 
 Key APIs into the back end
 --------------------------
