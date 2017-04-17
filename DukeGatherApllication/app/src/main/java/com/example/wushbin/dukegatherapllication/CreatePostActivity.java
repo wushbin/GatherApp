@@ -34,6 +34,9 @@ public class CreatePostActivity extends AppCompatActivity {
 
     private EditText mFromEditText;
     private EditText mToEditText;
+    private EditText editDate;
+    private EditText editTime;
+
     private Button mCreateButton;
     private int quantityOfPeoplePost;
 
@@ -44,9 +47,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
     private DatabaseReference mPostDatabaseReference; // a database reference
-
     private FirebaseAuth mFirebaseAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +59,12 @@ public class CreatePostActivity extends AppCompatActivity {
         mUserPhotoUri = user.getPhotoUrl();
 
         quantityOfPeoplePost = 1;
-        display(quantityOfPeoplePost);
+        displayNumber(quantityOfPeoplePost);
         Button increaseButton = (Button)findViewById(R.id.button_plus);
         increaseButton.setOnClickListener(new View.OnClickListener(){
                                               public void onClick(View v){
                                                   quantityOfPeoplePost = quantityOfPeoplePost + 1;
-                                                  display(quantityOfPeoplePost);
+                                                  displayNumber(quantityOfPeoplePost);
                                               }
                                           }
         );
@@ -74,11 +75,11 @@ public class CreatePostActivity extends AppCompatActivity {
                                                   if (quantityOfPeoplePost <= 0){
                                                       quantityOfPeoplePost = 1;
                                                   }
-                                                  display(quantityOfPeoplePost);
+                                                  displayNumber(quantityOfPeoplePost);
                                               }
                                           }
         );
-        final EditText editDate = (EditText)findViewById(R.id.edit_date);
+        editDate = (EditText)findViewById(R.id.edit_date);
         editDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             public void onFocusChange(View view, boolean hasfocus){
                 if(hasfocus){
@@ -89,7 +90,7 @@ public class CreatePostActivity extends AppCompatActivity {
             }
 
         });
-        final EditText editTime = (EditText)findViewById(R.id.edit_time);
+        editTime = (EditText)findViewById(R.id.edit_time);
         editTime.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             public void onFocusChange(View view, boolean hasfocus){
                 if(hasfocus){
@@ -110,29 +111,34 @@ public class CreatePostActivity extends AppCompatActivity {
         mCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String from = mFromEditText.getText().toString().trim();
-                String to = mToEditText.getText().toString().trim();
-                String leaveTime = editTime.getText().toString().trim();
-                String leaveDate = editDate.getText().toString().trim();
-
-                if(from.equals("") || to.equals("")|| leaveTime.equals("") || leaveDate.equals("")){
-                    Toast.makeText(CreatePostActivity.this,"Please check your input", Toast.LENGTH_SHORT).show();
-                }else {
-                    Log.v("leavet", leaveTime);
-                    Log.v("leaveD", leaveDate);
-                    Post newPost = new Post(from, to, leaveTime, leaveDate, quantityOfPeoplePost, mUsername);
-                    postKey = mPostDatabaseReference.push().getKey();
-                    mPostDatabaseReference.child(postKey).setValue(newPost);
-                    User postOwner = new User(mUsername, mUserEmail, String.valueOf(mUserPhotoUri));
-                    mPostDatabaseReference.child(postKey).child("User").push().setValue(postOwner);
-                    NavUtils.navigateUpFromSameTask(CreatePostActivity.this);
-                }
+                createNewPost();
             }
         });
+    }
+
+    private void createNewPost(){
+
+        String from = mFromEditText.getText().toString().trim();
+        String to = mToEditText.getText().toString().trim();
+        String leaveTime = editTime.getText().toString().trim();
+        String leaveDate = editDate.getText().toString().trim();
+
+        if(from.equals("") || to.equals("")|| leaveTime.equals("") || leaveDate.equals("")){
+            Toast.makeText(CreatePostActivity.this,"Please check your input", Toast.LENGTH_SHORT).show();
+        }else {
+            Log.v("leavet", leaveTime);
+            Log.v("leaveD", leaveDate);
+            Post newPost = new Post(from, to, leaveTime, leaveDate, quantityOfPeoplePost, mUsername);
+            postKey = mPostDatabaseReference.push().getKey();
+            mPostDatabaseReference.child(postKey).setValue(newPost);
+            User postOwner = new User(mUsername, mUserEmail, String.valueOf(mUserPhotoUri));
+            mPostDatabaseReference.child(postKey).child("User").push().setValue(postOwner);
+            NavUtils.navigateUpFromSameTask(CreatePostActivity.this);
+        }
 
     }
 
-    private void display(int number){
+    private void displayNumber(int number){
         TextView numberofpeopleTextVuew = (TextView)findViewById(R.id.number_of_people);
         numberofpeopleTextVuew.setText(""+number);
     }

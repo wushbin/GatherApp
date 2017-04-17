@@ -219,7 +219,7 @@ public class InGroupActivity extends AppCompatActivity{
         switch (item.getItemId()) {
             case R.id.action_edit:
                 // User chose the "Settings" item, show the app settings UI...
-                editPostInfo();
+                editPostInformation();
                 return true;
             case R.id.action_members:
                 // User chose the "members" item
@@ -232,7 +232,7 @@ public class InGroupActivity extends AppCompatActivity{
                 deleteGroup();
                 return true;
             case R.id.action_post_detail:
-                showPostInfo();
+                showPostInformation();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -306,7 +306,7 @@ public class InGroupActivity extends AppCompatActivity{
     /**
      * Update Post
      */
-    public void editPostInfo(){
+    public void editPostInformation(){
         if(! Owner.equals(mUsername)){
             Toast.makeText(InGroupActivity.this, "You're not the Owner of this group.", Toast.LENGTH_LONG).show();
         }else{
@@ -400,7 +400,7 @@ public class InGroupActivity extends AppCompatActivity{
      * show post detail information
      */
 
-    public void showPostInfo(){
+    public void showPostInformation(){
         Intent showPostInfoIntent = new Intent(InGroupActivity.this, EditPostActivity.class);
         showPostInfoIntent.putExtra("postKey",postKey);
         showPostInfoIntent.putExtra("existStatus",existStatus);

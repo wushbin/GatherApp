@@ -71,20 +71,7 @@ public class SearchActivity extends AppCompatActivity {
             case R.id.search_submit:
                 // User chose the "search" item, show the app search UI...
                 //transfer data to main page
-                Intent_Constants.fromSearch = 1;
-                EditText from_text = (EditText) findViewById(R.id.postfrom);
-                from1 = from_text.getText().toString();
-                EditText to_text = (EditText) findViewById(R.id.postto);
-                to1 = to_text.getText().toString();
-                EditText editDate = (EditText)findViewById(R.id.postdate);
-                EditText editTime = (EditText)findViewById(R.id.posttime);
-                time1 = editTime.getText().toString();
-                date1 = editDate.getText().toString();
-                intent.putExtra("from", from1);
-                intent.putExtra("to", to1);
-                intent.putExtra("time",time1);
-                intent.putExtra("date",date1);
-                startActivity(intent);
+                search(intent);
                 return true;
             case android.R.id.home:
                 Intent_Constants.fromSearch = 0;
@@ -92,5 +79,22 @@ public class SearchActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void search(Intent intent ){
+        Intent_Constants.fromSearch = 1;
+        EditText from_text = (EditText) findViewById(R.id.postfrom);
+        from1 = from_text.getText().toString();
+        EditText to_text = (EditText) findViewById(R.id.postto);
+        to1 = to_text.getText().toString();
+        EditText editDate = (EditText)findViewById(R.id.postdate);
+        EditText editTime = (EditText)findViewById(R.id.posttime);
+        time1 = editTime.getText().toString();
+        date1 = editDate.getText().toString();
+        intent.putExtra("from", from1);
+        intent.putExtra("to", to1);
+        intent.putExtra("time",time1);
+        intent.putExtra("date",date1);
+        startActivity(intent);
     }
 }
