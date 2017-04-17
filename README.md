@@ -44,11 +44,19 @@ Key APIs into the back end
 * Image displaying
  1. com.github.bumptech.glide:glide:3.6.1
 
-Tak Card before April 12
+Team Assignment Allocation
 ------------------------
 
 | task name                         | Description                                                                                                                                                              | owner                     |
 |-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| search function                   | implement the search function of the post in firebase | Shangxing Sun   |
-| UI function furnished             | setting, create new post: For now, we use firebase authentication, the setting should be changed, there should be a datepicker in the create new post|Shihao Li|
-| Message  | revised the message UI, associate the group chatting with different group| Shengbin Wu|
+| Post board | Build post board UI and retrieve data from firebase| Shengbin Wu|
+| Setting | Build setting UI and update user name, email, photo into firebase| Shangxing Sun|
+|Create new Post | Build create new post UI and upload new post into firebase| Shangxing Sun|
+|In group chatting | Build in group chatting UI and upload user message into firebase| Shengbing Wu|
+|Edit post| Build edit post UI and update group information into firebase| Shengbing Wu|
+|Group member| Build group member info UI and display group member's info| Shengbing Wu|
+| search function                   | implement the search function of the post in firebase | Shangxing Sun, Shihao Li  |
+| UI function furnished             | UI refinement and debugging |Shihao Li|
+| Document  | Finish design and test document | Shihao Li, Shangxing Sun|
+| Presentation| Preparing presentation powerpoint and other document| Shangxing Sun, Shihao Li, Shengbing Wu|
+
