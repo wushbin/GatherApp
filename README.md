@@ -57,6 +57,8 @@ Team Assignment Allocation
 |Group member| Build group member info UI and display group member's info| Shengbing Wu|
 | search function                   | implement the search function of the post in firebase | Shangxing Sun, Shihao Li  |
 | UI function furnished             | UI refinement and debugging |Shihao Li|
+|firebase Implementation| Implement the app with firebase| Shengbin Wu|
+|firebase authentication| Implement the authentication |Shangxing Sun| 
 | Document  | Finish design and test document | Shihao Li, Shangxing Sun|
 | Presentation| Preparing presentation powerpoint and other document| Shangxing Sun, Shihao Li, Shengbing Wu|
 
