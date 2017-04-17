@@ -8,24 +8,20 @@
     android:orientation="vertical"
     android:layout_margin="8dp"
     tools:context="com.example.wushbin.dukegatherapllication.MainActivity">
-
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id = "@+id/post_list_View"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp">
-
     </ListView>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         app:backgroundTint="@color/page_button"
         android:src="@drawable/ic_add_white_48dp"/>
 </RelativeLayout>
