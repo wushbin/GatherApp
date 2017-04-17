@@ -1,9 +1,11 @@
 package com.example.wushbin.dukegatherapllication;
 
 import android.app.DatePickerDialog;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,37 +30,35 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class CreatePostActivity extends AppCompatActivity {
-    public static final String ANONYMOUS = "anonymous";
     private static final String TAG = "CreateNewPostActivity";
 
     private EditText mFromEditText;
     private EditText mToEditText;
-    private EditText mTimeText;
     private Button mCreateButton;
-    private TimePicker mTimePicker;
-    private DatePicker mDatePicker;
-    private Calendar calendar= Calendar.getInstance();;
     private int quantityOfPeoplePost;
-    private int hour;
-    private int min;
-    private int month;
-    private int day;
 
     private String mUsername;
+    private String mUserEmail;
+    private Uri mUserPhotoUri;
+    private String postKey;
 
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
     private DatabaseReference mPostDatabaseReference; // a database reference
 
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
-        mUsername = ANONYMOUS;
-        mUsername = getIntent().getStringExtra("userName");
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        mUsername = user.getDisplayName();
+        mUserEmail = user.getEmail();
+        mUserPhotoUri = user.getPhotoUrl();
+
         quantityOfPeoplePost = 1;
         display(quantityOfPeoplePost);
-
         Button increaseButton = (Button)findViewById(R.id.button_plus);
         increaseButton.setOnClickListener(new View.OnClickListener(){
                                               public void onClick(View v){
@@ -98,22 +100,13 @@ public class CreatePostActivity extends AppCompatActivity {
             }
 
         });
-        ///Shengbin Wu
+
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mPostDatabaseReference = mFirebaseDatabase.getReference().child("post");
-
-
-
         mFromEditText = (EditText) findViewById(R.id.post_from);
         mToEditText = (EditText) findViewById(R.id.post_to);
-        //mTimeText = (EditText) findViewById(R.id.post_time);
         mCreateButton = (Button) findViewById(R.id.button_create_post);
 
-
-
-
-        //TODO:should set the Time Picker to show the current time
-        //TODO:should change the time picker as dialogue
         mCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,25 +117,20 @@ public class CreatePostActivity extends AppCompatActivity {
                 Log.v("leavet",leaveTime);
                 Log.v("leaveD",leaveDate);
                 Post newPost = new Post(from, to,leaveTime,leaveDate,quantityOfPeoplePost,mUsername);
-                mPostDatabaseReference.push().setValue(newPost);
+                postKey = mPostDatabaseReference.push().getKey();
+                mPostDatabaseReference.child(postKey).setValue(newPost);
+                User postOwner = new User(mUsername,mUserEmail,String.valueOf(mUserPhotoUri));
+                mPostDatabaseReference.child(postKey).child("User").push().setValue(postOwner);
                 Toast.makeText(CreatePostActivity.this,"Posted", Toast.LENGTH_SHORT).show();
+                NavUtils.navigateUpFromSameTask(CreatePostActivity.this);
             }
         });
 
-
-
-
-
     }
-
 
     private void display(int number){
         TextView numberofpeopleTextVuew = (TextView)findViewById(R.id.number_of_people);
         numberofpeopleTextVuew.setText(""+number);
     }
-
-
-
-
 
 }

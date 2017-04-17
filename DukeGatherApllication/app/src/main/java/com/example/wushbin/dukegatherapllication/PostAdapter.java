@@ -51,9 +51,6 @@ public class PostAdapter extends ArrayAdapter<Post> {
         TextView postNum = (TextView) listItemView.findViewById(R.id.post_item_num2);
         TextView currentNum = (TextView) listItemView.findViewById(R.id.post_item_num1);
         TextView description = (TextView) listItemView.findViewById(R.id.post_item_description);
-        Button join = (Button) listItemView.findViewById(R.id.post_join);
-        Button enter = (Button) listItemView.findViewById(R.id.post_enter);
-
         final Post currentPost = getItem(position);
         postFrom.setText(currentPost.getFromPlace());
         postTo.setText(currentPost.getToPlace());
@@ -62,17 +59,16 @@ public class PostAdapter extends ArrayAdapter<Post> {
         postOwner.setText(currentPost.getUserName());
         postNum.setText(String.valueOf(currentPost.getNumOfPeople()));
         currentNum.setText(String.valueOf(currentPost.getCurrentNumofMembers()));
-        /*String currentUserName = ((MainActivity)mContext).getmUsername();
-        boolean exitStatus = checkExistStatus(currentPost,currentUserName);
-        if(exitStatus){
-            join.setVisibility(View.GONE);
-            //enter.setGravity(right);
-        }*/
+
         boolean mOpenStatus = currentPost.getOpenStatus();
-        //Log.v("**PostAdapter",String.valueOf(mOpenStatus));
+        //Log.v("**PostAdapter**",currentPost.getKey());
+        //Log.v("**PostAdapter**",String.valueOf(mOpenStatus));
+        Button join = (Button) listItemView.findViewById(R.id.post_join);
+        Button enter = (Button) listItemView.findViewById(R.id.post_enter);
         if(! mOpenStatus){
-            join.setEnabled(false);
-            join.setBackgroundResource(R.color.button_disable);
+            Log.v("**PostAdapter**",currentPost.getKey());
+            join.setVisibility(View.GONE);
+            //join.setBackgroundResource(R.color.button_disable);
         }
         join.setOnClickListener(new View.OnClickListener() {
             @Override

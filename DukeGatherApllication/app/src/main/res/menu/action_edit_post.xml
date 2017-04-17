@@ -6,8 +6,4 @@
         android:title="save"
         android:icon="@drawable/ic_done"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_edit_delete"
-        android:title="delete"
-        app:showAsAction="never" />
 </menu>
