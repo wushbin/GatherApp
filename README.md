@@ -51,7 +51,7 @@ Team Assignment Allocation
 |-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
 | Post board | Build post board UI and retrieve data from firebase| Shengbin Wu|
 | Setting | Build setting UI and update user name, email, photo into firebase| Shangxing Sun|
-|Create new Post | Build create new post UI and upload new post into firebase| Shangxing Sun|
+|Create new Post | Build create new post UI and upload new post into firebase| Shangxing Sun,Shengbin Wu|
 |In group chatting | Build in group chatting UI and upload user message into firebase| Shengbing Wu|
 |Edit post| Build edit post UI and update group information into firebase| Shengbing Wu|
 |Group member| Build group member info UI and display group member's info| Shengbing Wu|
