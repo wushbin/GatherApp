@@ -24,7 +24,6 @@
         android:hint="Time"
         android:id="@+id/edit_time"
         style="@style/EditorFieldStyle" />
-
     <TextView
         android:padding="6dp"
         android:fontFamily = "sans-serif-light"
@@ -69,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
+        android:background="@color/colorAccent"
         android:text="post" />
 
 </LinearLayout>
