@@ -234,6 +234,9 @@ public class InGroupActivity extends AppCompatActivity{
             case R.id.action_delete:
                 deleteGroup();
                 return true;
+            case R.id.action_post_detail:
+                showPostInfo();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -391,5 +394,19 @@ public class InGroupActivity extends AppCompatActivity{
      */
     public void openTheGroup(){
         mMessagesDatabaseReference.child("openStatus").setValue(true);
+    }
+
+
+    /**
+     * show post detail information
+     */
+
+    public void showPostInfo(){
+        Intent showPostInfoIntent = new Intent(InGroupActivity.this, EditPostActivity.class);
+        showPostInfoIntent.putExtra("postKey",postKey);
+        showPostInfoIntent.putExtra("memberName",mUsername);
+        showPostInfoIntent.putExtra("onlyShow",true);
+        startActivity(showPostInfoIntent);
+
     }
 }
