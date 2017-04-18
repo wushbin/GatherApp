@@ -93,7 +93,14 @@ public class InGroupActivity extends AppCompatActivity{
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("post").child(postKey);
 
         if(existStatus == false){
-            User currentUser = new User(mUsername,mUserEmail,mUserPhotoUri.toString());
+            User currentUser;
+            if(mUserPhotoUri == null){
+                String tempPhotoUrl = "";
+                currentUser = new User (mUsername, mUserEmail, tempPhotoUrl);
+
+            }else{
+                currentUser = new User(mUsername, mUserEmail, mUserPhotoUri.toString());
+            }
             String currentUserKey = mMessagesDatabaseReference.child("User").push().getKey();
             mMessagesDatabaseReference.child("User").child(currentUserKey).setValue(currentUser);
             existStatus = true;

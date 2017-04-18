@@ -42,7 +42,9 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         nameText.setText(currentUser.getUserName());
         contactText.setText(currentUser.getEmail());
-        Glide.with(photoImageView.getContext()).load(currentUser.getPhotoUrl()).into(photoImageView);
+        if(currentUser.getPhotoUrl() != "") {
+            Glide.with(photoImageView.getContext()).load(currentUser.getPhotoUrl()).into(photoImageView);
+        }
         return listItemView;
     }
 }
