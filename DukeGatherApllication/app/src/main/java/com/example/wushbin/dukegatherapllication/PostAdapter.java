@@ -59,29 +59,32 @@ public class PostAdapter extends ArrayAdapter<Post> {
         postOwner.setText(currentPost.getUserName());
         postNum.setText(String.valueOf(currentPost.getNumOfPeople()));
         currentNum.setText(String.valueOf(currentPost.getCurrentNumofMembers()));
-
-        boolean mOpenStatus = currentPost.getOpenStatus();
         //Log.v("**PostAdapter**",currentPost.getKey());
         //Log.v("**PostAdapter**",String.valueOf(mOpenStatus));
         Button join = (Button) listItemView.findViewById(R.id.post_join);
         Button enter = (Button) listItemView.findViewById(R.id.post_enter);
 
-        if(! mOpenStatus || (currentPost.getCurrentNumofMembers() >= currentPost.getNumOfPeople())){
+        /*if(! mOpenStatus || (currentPost.getCurrentNumofMembers() >= currentPost.getNumOfPeople())){
             //Log.v("**PostAdapter**",currentPost.getKey());
-            join.setVisibility(View.GONE);
+            //Toast.makeText(getContext(), "This post is closed", Toast.LENGTH_SHORT).show();
+            join.setEnabled(false);
             //join.setBackgroundResource(R.color.button_disable);
-        }
+        }*/
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mContext instanceof MainActivity){
                     String currentUserName = ((MainActivity)mContext).getmUsername();
                     boolean exitStatus = checkExistStatus(currentPost,currentUserName);
-                    if(exitStatus == false){
-                        ((MainActivity)mContext).showJoinConfirmationDialog(currentPost,exitStatus);
-                    }
-                    if(exitStatus == true){
-                        Toast.makeText(getContext(), "You are already in this group! ", Toast.LENGTH_SHORT).show();
+                    if(currentPost.getOpenStatus() && (currentPost.getCurrentNumofMembers() < currentPost.getNumOfPeople())) {
+                        if (exitStatus == false) {
+                            ((MainActivity) mContext).showJoinConfirmationDialog(currentPost, exitStatus);
+                        }
+                        if (exitStatus == true) {
+                            Toast.makeText(getContext(), "You are already in this group! ", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(getContext(), "This post is closed", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
