@@ -33,6 +33,8 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.security.acl.Owner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +74,7 @@ public class InGroupActivity extends AppCompatActivity{
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mChatPhotosStorageReference;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
-    private String Owner;
+    private String OwnerId;
 
 
     // the onCreate to initialize this interface
@@ -180,7 +182,7 @@ public class InGroupActivity extends AppCompatActivity{
         ValueEventListener OwnerListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Owner = dataSnapshot.getValue(String.class);
+                OwnerId = dataSnapshot.getValue(String.class);
             }
 
             @Override
@@ -188,7 +190,7 @@ public class InGroupActivity extends AppCompatActivity{
 
             }
         };
-        mMessagesDatabaseReference.child("userName").addValueEventListener(OwnerListener);
+        mMessagesDatabaseReference.child("userUId").addValueEventListener(OwnerListener);
     }
     
     @Override
@@ -254,7 +256,7 @@ public class InGroupActivity extends AppCompatActivity{
      */
     //show quit group dialogue
     public void quitGroupPreChecking(){
-        if(Owner.equals(mUsername)){
+        if(OwnerId.equals(mUserUniqID)){
             Toast.makeText(InGroupActivity.this, "You're not the Owner. You can only delete.", Toast.LENGTH_LONG).show();
         }else{
             showQuitConfirmationDialog();
@@ -328,7 +330,7 @@ public class InGroupActivity extends AppCompatActivity{
      * Update Post
      */
     public void editPostInformation(){
-        if(! Owner.equals(mUsername)){
+        if(! OwnerId.equals(mUserUniqID)){
             Toast.makeText(InGroupActivity.this, "You're not the Owner of this group.", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(InGroupActivity.this, "Edit The Post.", Toast.LENGTH_LONG).show();
@@ -345,7 +347,7 @@ public class InGroupActivity extends AppCompatActivity{
      */
     public void deleteGroup(){
         //Log.v(TAG, Owner);
-        if(! Owner.equals(mUsername)){
+        if(! OwnerId.equals(mUserUniqID)){
             Toast.makeText(InGroupActivity.this, "You're not the Owner of this group.", Toast.LENGTH_LONG).show();
         }else{
             showDeleteConfirmationDialog();
