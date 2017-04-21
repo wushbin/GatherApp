@@ -11,6 +11,8 @@ public class User {
     private String userName;
     private String email;
     public String photoUrl;
+    public String uniqId;
+
     public User(){ }
     public User(String userName){
         this.userName = userName;
@@ -21,10 +23,18 @@ public class User {
         this.email = email;
     }
 
-    public User(String userName, String email, String photoUrl){
+    public User(String userName, String email, String uniqId){
+        this.userName = userName;
+        this.email = email;
+        this.uniqId = uniqId;
+    }
+
+
+    public User(String userName, String email, String photoUrl,String uniqId){
         this.userName = userName;
         this.email = email;
         this.photoUrl = photoUrl;
+        this.uniqId = uniqId;
     }
 
     public String getUserName(){
@@ -38,5 +48,11 @@ public class User {
     }
     public String getPhotoUrl(){
         return photoUrl;
+    }
+    public void setuniId(String uniqId){
+        this.uniqId = uniqId;
+    }
+    public String getUniqId(){
+        return uniqId;
     }
 }

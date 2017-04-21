@@ -63,6 +63,7 @@ public class InGroupActivity extends AppCompatActivity{
     private String mUsername;
     private String mUserEmail;
     private Uri mUserPhotoUri;
+    private String mUserUniqID;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
@@ -84,7 +85,7 @@ public class InGroupActivity extends AppCompatActivity{
         mUsername = user.getDisplayName();
         mUserEmail = user.getEmail();
         mUserPhotoUri = user.getPhotoUrl();
-
+        mUserUniqID = user.getUid();
         postKey = getIntent().getExtras().getString("postKey");
         existStatus = getIntent().getExtras().getBoolean("existStatus");
 
@@ -96,10 +97,9 @@ public class InGroupActivity extends AppCompatActivity{
             User currentUser;
             if(mUserPhotoUri == null){
                 String tempPhotoUrl = "";
-                currentUser = new User (mUsername, mUserEmail, tempPhotoUrl);
-
+                currentUser = new User (mUsername, mUserEmail, tempPhotoUrl, mUserUniqID);
             }else{
-                currentUser = new User(mUsername, mUserEmail, mUserPhotoUri.toString());
+                currentUser = new User(mUsername, mUserEmail, mUserPhotoUri.toString(),mUserUniqID);
             }
             String currentUserKey = mMessagesDatabaseReference.child("User").push().getKey();
             mMessagesDatabaseReference.child("User").child(currentUserKey).setValue(currentUser);

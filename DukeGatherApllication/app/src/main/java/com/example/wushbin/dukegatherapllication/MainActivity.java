@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private String mUsername;
     private String mUserEmail;
     private Uri mUserPhotoUri;
+    private String mUserUniqID;
+
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
     private DatabaseReference mPostDatabaseReference; // a database reference
     private ChildEventListener mChildEventListener;
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 if(user != null){
                     // user signed in
                     //mUsername = user.getDisplayName();
-                    onSignedInInitialize(user.getDisplayName(),user.getEmail(),user.getPhotoUrl());
+                    onSignedInInitialize(user.getDisplayName(),user.getEmail(),user.getPhotoUrl(), user.getUid());
                     //Toast.makeText(MainActivity.this, "You're now signed in. Welcome to DukeGather.", Toast.LENGTH_SHORT).show();
                 }else{
                     onSignedOutCleanUp();
@@ -186,10 +188,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void onSignedInInitialize(String userName, String userEmail, Uri userPhotoUri){
+    private void onSignedInInitialize(String userName, String userEmail, Uri userPhotoUri, String userUid){
         mUsername = userName;
         mUserEmail = userEmail;
         mUserPhotoUri = userPhotoUri;
+        mUserUniqID = userUid;
         attachDatabaseReadListener();
     }
 
@@ -329,6 +332,9 @@ public class MainActivity extends AppCompatActivity {
 
     public String getmUsername(){
         return mUsername;
+    }
+    public String getmUserUniqID(){
+        return mUserUniqID;
     }
 
 }

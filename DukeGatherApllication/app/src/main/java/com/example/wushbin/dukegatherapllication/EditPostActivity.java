@@ -198,14 +198,13 @@ public class EditPostActivity extends AppCompatActivity {
         String numString = mNumEditText.getText().toString().trim();
         int numOfPeople = Integer.parseInt(numString);
         boolean openStatus = mSwitchView.isChecked();
-        Post updatedPost = new Post(fromString,toString,timeString,dateString,numOfPeople,mUsername);
+        Post updatedPost = new Post(fromString,toString,timeString,dateString,numOfPeople);
         updatedPost.setOpenStatus(openStatus);
         Map<String, Object> postValues = updatedPost.toMap();
         mCurrentPostDatabaseReference.updateChildren(postValues);
         backToGroupActivity();
         //NavUtils.navigateUpFromSameTask(EditPostActivity.this);
     }
-
 
     @Override
     public void onBackPressed() {
