@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,13 +30,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.example.wushbin.dukegatherapllication.InGroupActivity.DEFAULT_MSG_LENGTH_LIMIT;
+
 /**
  * Created by Shangxing on 3/3/17.
  */
 
 public class CreatePostActivity extends AppCompatActivity {
     private static final String TAG = "CreateNewPostActivity";
-
+    public static final int DEFAULT_LOCATION_LENGTH_LIMIT = 40;
     private EditText mFromEditText;
     private EditText mToEditText;
     private EditText editDate;
@@ -108,6 +111,9 @@ public class CreatePostActivity extends AppCompatActivity {
         mPostDatabaseReference = mFirebaseDatabase.getReference().child("post");
         mFromEditText = (EditText) findViewById(R.id.post_from);
         mToEditText = (EditText) findViewById(R.id.post_to);
+
+        mFromEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_LOCATION_LENGTH_LIMIT)});
+        mToEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_LOCATION_LENGTH_LIMIT)});
     }
 
     private void createNewPost() {
