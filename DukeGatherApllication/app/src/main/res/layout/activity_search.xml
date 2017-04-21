@@ -17,13 +17,15 @@
         android:id="@+id/posttime"
         android:inputType="datetime"
         android:hint="Time"
-        style="@style/EditorFieldStyle" />
+        style="@style/EditorFieldStyle"
+        android:editable="false"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Date"
         style="@style/EditorFieldStyle"
-        android:id="@+id/postdate"/>
+        android:id="@+id/postdate"
+        android:editable="false"/>
 
 
 </LinearLayout>
