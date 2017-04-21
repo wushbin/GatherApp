@@ -241,6 +241,11 @@ public class InGroupActivity extends AppCompatActivity{
             case R.id.action_post_detail:
                 showPostInformation();
                 return true;
+            case android.R.id.home:
+                Intent intent = new Intent(InGroupActivity.this, MainActivity.class);
+                Intent_Constants.fromSearch = 0;
+                startActivity(intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
