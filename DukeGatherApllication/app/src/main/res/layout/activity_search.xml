@@ -25,10 +25,5 @@
         style="@style/EditorFieldStyle"
         android:id="@+id/postdate"/>
 
-    <EditText
-        android:id="@+id/people_num"
-        android:inputType="datetime"
-        android:hint="Number of Members"
-        style="@style/EditorFieldStyle" />
 
 </LinearLayout>
