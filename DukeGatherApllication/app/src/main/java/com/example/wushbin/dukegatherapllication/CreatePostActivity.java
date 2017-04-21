@@ -1,6 +1,7 @@
 package com.example.wushbin.dukegatherapllication;
 
 import android.app.DatePickerDialog;
+import android.content.ClipData;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -36,8 +39,6 @@ public class CreatePostActivity extends AppCompatActivity {
     private EditText mToEditText;
     private EditText editDate;
     private EditText editTime;
-
-    private Button mCreateButton;
     private int quantityOfPeoplePost;
 
     private String mUsername;
@@ -105,14 +106,6 @@ public class CreatePostActivity extends AppCompatActivity {
         mPostDatabaseReference = mFirebaseDatabase.getReference().child("post");
         mFromEditText = (EditText) findViewById(R.id.post_from);
         mToEditText = (EditText) findViewById(R.id.post_to);
-        mCreateButton = (Button) findViewById(R.id.button_create_post);
-
-        mCreateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createNewPost();
-            }
-        });
     }
 
     private void createNewPost(){
@@ -135,6 +128,22 @@ public class CreatePostActivity extends AppCompatActivity {
             NavUtils.navigateUpFromSameTask(CreatePostActivity.this);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_create_post,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_create_save:
+                createNewPost();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void displayNumber(int number){
