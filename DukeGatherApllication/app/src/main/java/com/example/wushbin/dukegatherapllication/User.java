@@ -28,8 +28,6 @@ public class User {
         this.email = email;
         this.uniqId = uniqId;
     }
-
-
     public User(String userName, String email, String photoUrl,String uniqId){
         this.userName = userName;
         this.email = email;
@@ -46,12 +44,13 @@ public class User {
         }
         return email;
     }
+
+    public void setPhotoUrl(String photoUrl){
+        this.photoUrl = photoUrl;
+    }
+
     public String getPhotoUrl(){
-        if(photoUrl.length()<= 2) {
-            return null;
-        }else{
-            return photoUrl;
-        }
+        return photoUrl;
     }
     public void setuniId(String uniqId){
         this.uniqId = uniqId;

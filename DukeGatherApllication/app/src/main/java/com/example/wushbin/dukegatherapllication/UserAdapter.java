@@ -3,6 +3,7 @@ package com.example.wushbin.dukegatherapllication;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -19,7 +20,10 @@ import static com.example.wushbin.dukegatherapllication.R.id.photoImageView;
  * Created by wushbin on 4/14/17.
  */
 
+
+
 public class UserAdapter extends ArrayAdapter<User> {
+    private String TAG= "**User Adapter";
 
     public UserAdapter(Activity context, int resource, List<User> users) {
         super(context, resource, users);
@@ -43,11 +47,13 @@ public class UserAdapter extends ArrayAdapter<User> {
         nameText.setText(currentUser.getUserName());
         contactText.setText(currentUser.getEmail());
         if(currentUser.getPhotoUrl() != null) {
+            Log.v(TAG, currentUser.getPhotoUrl());
             Glide.with(photoImageView.getContext()).load(currentUser.getPhotoUrl()).into(photoImageView);
         }
         else{
             photoImageView.setImageResource(R.mipmap.ic_launcher);
         }
+
         return listItemView;
     }
 }
