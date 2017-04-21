@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.content.Intent;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -140,11 +141,18 @@ public class CreatePostActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_create_save:
                 createNewPost();
                 return true;
+            case android.R.id.home:
+                Intent intent = new Intent(CreatePostActivity.this, MainActivity.class);
+                Intent_Constants.fromSearch = 0;
+                startActivity(intent);
+                return true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
