@@ -46,6 +46,7 @@
             android:layout_width="0dp"
             android:layout_weight="3"
             android:hint="mm/dd/yyyy"
+            android:editable="false"
             android:id="@+id/post_edit_date"/>
     </LinearLayout>
 
@@ -59,6 +60,7 @@
             style="@style/EditorFieldStyle"
             android:layout_width="0dp"
             android:layout_weight="3"
+            android:editable="false"
             android:hint="hh-mm"
             android:id="@+id/post_edit_time"/>
     </LinearLayout>
