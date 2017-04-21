@@ -49,6 +49,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
     private DatabaseReference mPostDatabaseReference; // a database reference
     private FirebaseAuth mFirebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,29 +62,29 @@ public class CreatePostActivity extends AppCompatActivity {
 
         quantityOfPeoplePost = 1;
         displayNumber(quantityOfPeoplePost);
-        Button increaseButton = (Button)findViewById(R.id.button_plus);
-        increaseButton.setOnClickListener(new View.OnClickListener(){
-                                              public void onClick(View v){
+        Button increaseButton = (Button) findViewById(R.id.button_plus);
+        increaseButton.setOnClickListener(new View.OnClickListener() {
+                                              public void onClick(View v) {
                                                   quantityOfPeoplePost = quantityOfPeoplePost + 1;
                                                   displayNumber(quantityOfPeoplePost);
                                               }
                                           }
         );
-        Button decreaseButton = (Button)findViewById(R.id.button_min);
-        decreaseButton.setOnClickListener(new View.OnClickListener(){
-                                              public void onClick(View v){
+        Button decreaseButton = (Button) findViewById(R.id.button_min);
+        decreaseButton.setOnClickListener(new View.OnClickListener() {
+                                              public void onClick(View v) {
                                                   quantityOfPeoplePost = quantityOfPeoplePost - 1;
-                                                  if (quantityOfPeoplePost <= 0){
+                                                  if (quantityOfPeoplePost <= 0) {
                                                       quantityOfPeoplePost = 1;
                                                   }
                                                   displayNumber(quantityOfPeoplePost);
                                               }
                                           }
         );
-        editDate = (EditText)findViewById(R.id.edit_date);
-        editDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-            public void onFocusChange(View view, boolean hasfocus){
-                if(hasfocus){
+        editDate = (EditText) findViewById(R.id.edit_date);
+        editDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View view, boolean hasfocus) {
+                if (hasfocus) {
                     DialogFragment newFragment = new DatePickerFragment(view);
                     newFragment.show(getSupportFragmentManager(), "datePicker");
 
@@ -91,10 +92,10 @@ public class CreatePostActivity extends AppCompatActivity {
             }
 
         });
-        editTime = (EditText)findViewById(R.id.edit_time);
-        editTime.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-            public void onFocusChange(View view, boolean hasfocus){
-                if(hasfocus){
+        editTime = (EditText) findViewById(R.id.edit_time);
+        editTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View view, boolean hasfocus) {
+                if (hasfocus) {
                     DialogFragment newFragment = new TimePickerFragment(view);
                     newFragment.show(getSupportFragmentManager(), "timePicker");
 
@@ -108,16 +109,16 @@ public class CreatePostActivity extends AppCompatActivity {
         mToEditText = (EditText) findViewById(R.id.post_to);
     }
 
-    private void createNewPost(){
+    private void createNewPost() {
 
         String from = mFromEditText.getText().toString().trim();
         String to = mToEditText.getText().toString().trim();
         String leaveTime = editTime.getText().toString().trim();
         String leaveDate = editDate.getText().toString().trim();
 
-        if(from.equals("") || to.equals("")|| leaveTime.equals("") || leaveDate.equals("")){
-            Toast.makeText(CreatePostActivity.this,"Please check your input", Toast.LENGTH_SHORT).show();
-        }else {
+        if (from.equals("") || to.equals("") || leaveTime.equals("") || leaveDate.equals("")) {
+            Toast.makeText(CreatePostActivity.this, "Please check your input", Toast.LENGTH_SHORT).show();
+        } else {
             Log.v("leavet", leaveTime);
             Log.v("leaveD", leaveDate);
             Post newPost = new Post(from, to, leaveTime, leaveDate, quantityOfPeoplePost, mUsername);
@@ -129,6 +130,7 @@ public class CreatePostActivity extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,9 +148,8 @@ public class CreatePostActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void displayNumber(int number){
-        TextView numberofpeopleTextVuew = (TextView)findViewById(R.id.number_of_people);
-        numberofpeopleTextVuew.setText(""+number);
+    private void displayNumber(int number) {
+        TextView numberofpeopleTextVuew = (TextView) findViewById(R.id.number_of_people);
+        numberofpeopleTextVuew.setText("" + number);
     }
-
 }

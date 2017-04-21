@@ -214,6 +214,12 @@ public class SettingActivity extends AppCompatActivity {
                 // discard edition
                 finish();
                 return true;
+
+            case android.R.id.home:
+                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                Intent_Constants.fromSearch = 0;
+                startActivity(intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
