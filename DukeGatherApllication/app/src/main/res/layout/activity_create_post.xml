@@ -18,12 +18,14 @@
      <EditText
          android:hint="Date"
          android:id="@+id/edit_date"
-         style="@style/EditorFieldStyle" />
+         style="@style/EditorFieldStyle"
+         android:editable="false"/>
 
     <EditText
         android:hint="Time"
         android:id="@+id/edit_time"
-        style="@style/EditorFieldStyle" />
+        style="@style/EditorFieldStyle"
+        android:editable="false"/>
     <TextView
         android:padding="6dp"
         android:fontFamily = "sans-serif-light"
