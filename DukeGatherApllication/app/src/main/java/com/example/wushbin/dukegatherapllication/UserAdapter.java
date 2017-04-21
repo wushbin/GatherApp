@@ -42,8 +42,11 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         nameText.setText(currentUser.getUserName());
         contactText.setText(currentUser.getEmail());
-        if(currentUser.getPhotoUrl() != "") {
+        if(currentUser.getPhotoUrl() != null) {
             Glide.with(photoImageView.getContext()).load(currentUser.getPhotoUrl()).into(photoImageView);
+        }
+        else{
+            photoImageView.setImageResource(R.mipmap.ic_launcher);
         }
         return listItemView;
     }

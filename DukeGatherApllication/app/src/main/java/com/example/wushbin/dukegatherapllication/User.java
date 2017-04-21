@@ -37,6 +37,10 @@ public class User {
         return email;
     }
     public String getPhotoUrl(){
-        return photoUrl;
+        if(photoUrl.length()<= 2) {
+            return null;
+        }else{
+            return photoUrl;
+        }
     }
 }
