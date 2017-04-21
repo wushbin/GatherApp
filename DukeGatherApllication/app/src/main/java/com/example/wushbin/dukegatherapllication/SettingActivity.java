@@ -41,7 +41,7 @@ public class SettingActivity extends AppCompatActivity {
     private StorageReference mChatPhotosStorageReference;
     private FirebaseStorage mFirebaseStorage;
 
-
+    Uri downloadUrl;
     EditText Name;
     EditText email;
     boolean emailVerified = false;
@@ -127,13 +127,9 @@ public class SettingActivity extends AppCompatActivity {
             photoRef.putFile(selectedImageUri).addOnSuccessListener
                     (this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                           Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            downloadUrl = taskSnapshot.getDownloadUrl();
                             Toast.makeText(SettingActivity.this,"photo uploaded", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setPhotoUri(downloadUrl)
-                                    .build();
-                            user.updateProfile(profileUpdates);
+
                             ImageView iconforuser = (ImageView)findViewById(R.id.user_view);
                             Glide.with(iconforuser.getContext()).load(downloadUrl).into(iconforuser);
 
@@ -194,7 +190,7 @@ public class SettingActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                        .setDisplayName(sname)
+                        .setDisplayName(sname).setPhotoUri(downloadUrl)
                         .build();
 
                 user.updateProfile(profileUpdates)
