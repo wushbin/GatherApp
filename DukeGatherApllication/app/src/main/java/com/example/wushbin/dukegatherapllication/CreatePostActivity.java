@@ -101,7 +101,6 @@ public class CreatePostActivity extends AppCompatActivity {
             }
 
         });
-
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mPostDatabaseReference = mFirebaseDatabase.getReference().child("post");
         mFromEditText = (EditText) findViewById(R.id.post_from);

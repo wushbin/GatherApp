@@ -14,10 +14,5 @@
         app:showAsAction="never"
         ></item>
 
-    <item
-        android:id="@+id/clear"
-        android:title="clear"
-        app:showAsAction="never">
-    </item>
 
 </menu>
