@@ -233,7 +233,7 @@ public class InGroupActivity extends AppCompatActivity{
                 showMemberInformation();
                 return true;
             case R.id.action_quit:
-                showQuitConfirmationDialog();
+                quitGroupPreChecking();
                 return true;
             case R.id.action_delete:
                 deleteGroup();
@@ -253,6 +253,15 @@ public class InGroupActivity extends AppCompatActivity{
      * quite from group
      */
     //show quit group dialogue
+    public void quitGroupPreChecking(){
+        if(Owner.equals(mUsername)){
+            Toast.makeText(InGroupActivity.this, "You're not the Owner. You can only delete.", Toast.LENGTH_LONG).show();
+        }else{
+            showQuitConfirmationDialog();
+        }
+
+    }
+
     public void showQuitConfirmationDialog( ) {
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
