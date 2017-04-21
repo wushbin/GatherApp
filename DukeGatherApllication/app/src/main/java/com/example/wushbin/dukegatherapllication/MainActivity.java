@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 AuthUI.getInstance().signOut(this);
             case R.id.main_refresh:
                 Intent intent = getIntent();
+                Intent_Constants.fromSearch =0;
                 finish();
                 startActivity(intent);
         }
