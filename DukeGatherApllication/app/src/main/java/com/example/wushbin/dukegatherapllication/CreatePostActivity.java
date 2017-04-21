@@ -48,6 +48,8 @@ public class CreatePostActivity extends AppCompatActivity {
     private String mUsername;
     private String mUserEmail;
     private Uri mUserPhotoUri;
+    private String mUserUniqID;
+
     private String postKey;
 
     private FirebaseDatabase mFirebaseDatabase; // a fire base database instance
@@ -63,7 +65,7 @@ public class CreatePostActivity extends AppCompatActivity {
         mUsername = user.getDisplayName();
         mUserEmail = user.getEmail();
         mUserPhotoUri = user.getPhotoUrl();
-
+        mUserUniqID =user.getUid();
         quantityOfPeoplePost = 1;
         displayNumber(quantityOfPeoplePost);
         Button increaseButton = (Button) findViewById(R.id.button_plus);
@@ -128,14 +130,14 @@ public class CreatePostActivity extends AppCompatActivity {
         } else {
             Log.v("leavet", leaveTime);
             Log.v("leaveD", leaveDate);
-            Post newPost = new Post(from, to, leaveTime, leaveDate, quantityOfPeoplePost, mUsername);
+            Post newPost = new Post(from, to, leaveTime, leaveDate, quantityOfPeoplePost, mUsername, mUserUniqID);
+            Log.v(TAG,newPost.getUserUId());
             postKey = mPostDatabaseReference.push().getKey();
             mPostDatabaseReference.child(postKey).setValue(newPost);
-            User postOwner = new User(mUsername, mUserEmail, String.valueOf(mUserPhotoUri));
+            User postOwner = new User(mUsername, mUserEmail, String.valueOf(mUserPhotoUri),mUserUniqID);
             mPostDatabaseReference.child(postKey).child("User").push().setValue(postOwner);
             NavUtils.navigateUpFromSameTask(CreatePostActivity.this);
         }
-
     }
 
 

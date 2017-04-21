@@ -64,18 +64,12 @@ public class PostAdapter extends ArrayAdapter<Post> {
         Button join = (Button) listItemView.findViewById(R.id.post_join);
         Button enter = (Button) listItemView.findViewById(R.id.post_enter);
 
-        /*if(! mOpenStatus || (currentPost.getCurrentNumofMembers() >= currentPost.getNumOfPeople())){
-            //Log.v("**PostAdapter**",currentPost.getKey());
-            //Toast.makeText(getContext(), "This post is closed", Toast.LENGTH_SHORT).show();
-            join.setEnabled(false);
-            //join.setBackgroundResource(R.color.button_disable);
-        }*/
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mContext instanceof MainActivity){
-                    String currentUserName = ((MainActivity)mContext).getmUsername();
-                    boolean exitStatus = checkExistStatus(currentPost,currentUserName);
+                    String currentUserId = ((MainActivity)mContext).getmUserUniqID();
+                    boolean exitStatus = checkExistStatus(currentPost,currentUserId);
                     if(currentPost.getOpenStatus() && (currentPost.getCurrentNumofMembers() < currentPost.getNumOfPeople())) {
                         if (exitStatus == false) {
                             ((MainActivity) mContext).showJoinConfirmationDialog(currentPost, exitStatus);
@@ -93,8 +87,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
             @Override
             public void onClick(View v) {
                 if(mContext instanceof MainActivity){
-                    String currentUserName = ((MainActivity)mContext).getmUsername();
-                    boolean exitStatus = checkExistStatus(currentPost,currentUserName);
+                    String currentUserId = ((MainActivity)mContext).getmUserUniqID();
+                    boolean exitStatus = checkExistStatus(currentPost,currentUserId);
                     if(exitStatus == true){
                         ((MainActivity)mContext).getIntoInGroupActivity(currentPost,exitStatus);
                     }
@@ -107,10 +101,10 @@ public class PostAdapter extends ArrayAdapter<Post> {
         return listItemView;
     }
 
-    boolean checkExistStatus(Post currentPost, String currentUserName){
+    boolean checkExistStatus(Post currentPost, String currentUserId){
         boolean existStatus = false;
         for(User member : currentPost.getUsers()){
-            if (currentUserName.equals(member.getUserName())){
+            if (currentUserId.equals(member.getUniqId())){
                 existStatus = true;
                 break;
             }

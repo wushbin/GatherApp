@@ -17,6 +17,7 @@ public class Post {
     private String leaveDate;
     private int numOfPeople;
     private  String userName;
+    private String userUId;
     private String key;
     private ArrayList<User> Users;
     private boolean openStatus;
@@ -25,13 +26,24 @@ public class Post {
     }
 
     public Post( String fromPlace, String toPlace, String leaveTime, String leaveDate,
-                 int numOfPeople, String userName){
+                 int numOfPeople){
+        this.fromPlace = fromPlace;
+        this.toPlace = toPlace;
+        this.leaveTime = leaveTime;
+        this.leaveDate = leaveDate;
+        this.numOfPeople = numOfPeople;
+        this.openStatus = true;
+    }
+
+    public Post( String fromPlace, String toPlace, String leaveTime, String leaveDate,
+                 int numOfPeople, String userName,String userUId){
         this.fromPlace = fromPlace;
         this.toPlace = toPlace;
         this.leaveTime = leaveTime;
         this.leaveDate = leaveDate;
         this.numOfPeople = numOfPeople;
         this.userName = userName;
+        this.userUId = userUId;
         this.openStatus = true;
     }
 
@@ -84,5 +96,12 @@ public class Post {
         result.put("numOfPeople",numOfPeople);
         result.put("openStatus",openStatus);
         return result;
+    }
+
+    public void setUserUId(String userUId){
+        this.userUId = userUId;
+    }
+    public String getUserUId(){
+        return userUId;
     }
 }
