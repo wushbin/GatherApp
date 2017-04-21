@@ -225,15 +225,7 @@ public class SettingActivity extends AppCompatActivity {
                 return true;
             case R.id.discard:
                 // discard edition
-                Name.setText("");
-                email.setText("");
-                mGenderSpinner.setSelection(0);
-                return true;
-            case R.id.clear:
-                // discard edition
-                Name.setText("");
-                email.setText("");
-                mGenderSpinner.setSelection(0);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
