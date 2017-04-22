@@ -10,6 +10,7 @@ Pre-requisites
 
 Getting Started
 ---------------
+- [set up guide](https://gitlab.oit.duke.edu/ECE651_S17_PROJECTS/Plus3s/blob/master/setup.md)
 - This project uses the Gradle build system. To build this project, use the "gradlew build" command or use "Import Project" in Android Studio. 
 - We recommend using Android studio to import this project, because we have not exported a .apk file that can be installed in your phone.
 - Gradle version should be 2.14.1
