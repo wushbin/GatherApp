@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static com.example.wushbin.dukegatherapllication.R.id.photoImageView;
 
 /**
@@ -46,14 +47,16 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         nameText.setText(currentUser.getUserName());
         contactText.setText(currentUser.getEmail());
-        if(currentUser.getPhotoUrl() != null) {
+        String currentPhotoUrl = currentUser.getPhotoUrl();
+        if(currentPhotoUrl != null) {
             Log.v(TAG, currentUser.getPhotoUrl());
-            Glide.with(photoImageView.getContext()).load(currentUser.getPhotoUrl()).into(photoImageView);
-        }
-        else{
-            photoImageView.setImageResource(R.mipmap.ic_launcher);
-        }
 
+            if (currentPhotoUrl.length() > 0) {
+                Glide.with(photoImageView.getContext()).load(currentUser.getPhotoUrl()).into(photoImageView);
+            }else{
+                photoImageView.setImageResource(R.mipmap.ic_launcher);
+            }
+        }
         return listItemView;
     }
 }
