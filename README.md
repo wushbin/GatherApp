@@ -67,3 +67,7 @@ Reference
 1. [Fire base](https://firebase.google.com/docs/android/setup)
 2. [Android Developer](https://developer.android.com/index.html)
 3. [Google Material Design](https://material.io/)
+
+Documentation
+------------------------
+[Project Documentation](https://gitlab.oit.duke.edu/ECE651_S17_PROJECTS/Plus3s/blob/master/ProjectDocumentFile_plus3s.pdf)
