@@ -62,3 +62,8 @@ Team Assignment Allocation
 | Document  | Finish design and test document | Shihao Li, Shangxing Sun|
 | Presentation| Preparing presentation powerpoint and other document| Shangxing Sun, Shihao Li, Shengbing Wu|
 
+Reference
+------------------------
+1. [Fire base](https://firebase.google.com/docs/android/setup)
+2. [Android Developer](https://developer.android.com/index.html)
+3. [Google Material Design](https://material.io/)
