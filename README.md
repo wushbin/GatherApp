@@ -71,4 +71,4 @@ Reference
 
 Documentation
 ------------------------
-[Project Documentation](https://gitlab.oit.duke.edu/ECE651_S17_PROJECTS/Plus3s/blob/master/ProjectDocumentFile_plus3s.pdf)
+[Project Documentation](https://github.com/wushbin/GatherApp/blob/master/ProjectDocumentFile_plus3s.pdf)
